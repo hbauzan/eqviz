@@ -288,7 +288,7 @@ cmd_print_invariants() {
 
 menu() {
   printf '\n%s eqviz setup.sh %s\n' "$c_cyan" "$c_reset"
-  printf '%s  Admin. App = Swift+SwiftUI. Tooling = uv. macOS build cuando exista macos/.%s\n\n' "$c_dim" "$c_reset"
+  printf '%s  Admin. App = Swift+SwiftUI. Tooling = uv. macOS: xcodebuild → macos/build/.%s\n\n' "$c_dim" "$c_reset"
   cat <<'EOF'
   1)  Estado
   2)  Tooling: uv sync
@@ -298,7 +298,7 @@ menu() {
   6)  Tooling: format (ruff format)  [pide confirmación]
   7)  Git: instalar hooks pre-commit
   8)  Git: pre-commit --all-files   [pide confirmación]
-  9)  macOS: abrir Xcode            [falta proyecto hasta roadmap/02]
+  9)  macOS: abrir Xcode
  10)  macOS: build
  11)  macOS: tests
  12)  macOS: run
