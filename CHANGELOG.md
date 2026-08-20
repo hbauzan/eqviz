@@ -4,6 +4,7 @@ All notable changes to eqviz are documented here.
 
 ## [Unreleased]
 
+- Peak decay: instant attack, gravity 1.2 /s on the display clock (`TimelineView` 120 Hz). No Canvas yet.
 - vDSP real FFT (2048, Hann, hop 2048) → 32 log bands 0…1 behind `SpectrumSnapshot` (lock, not SwiftUI-published). `DSPTests` inject a sine; they do not use the mic.
 - Capture default-input via `AVAudioEngine.inputNode` (TCC + route-change retap verified).
 - Hidden titlebar + opaque black window (800×240, min 400×120); background drag via AppKit (macOS 14). Always-on-top still deferred.

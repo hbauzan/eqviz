@@ -4,23 +4,26 @@ struct ContentView: View {
     @State private var engine = AudioEngine()
 
     var body: some View {
-        ZStack(alignment: .bottomLeading) {
-            Color.black
-                .ignoresSafeArea()
+        TimelineView(.animation(minimumInterval: 1.0 / 120.0)) { timeline in
+            let _ = engine.tickPeaks(at: timeline.date)
+            ZStack(alignment: .bottomLeading) {
+                Color.black
+                    .ignoresSafeArea()
 #if DEBUG
-            Text(debugStatus)
-                .font(.system(size: 12, design: .monospaced))
-                .foregroundStyle(Color(white: 0.4))
-                .padding(8)
+                Text(debugStatus)
+                    .font(.system(size: 12, design: .monospaced))
+                    .foregroundStyle(Color(white: 0.4))
+                    .padding(8)
 #endif
-        }
-        .frame(minWidth: 400, minHeight: 120)
-        .background(WindowConfigurator())
-        .task {
-            await engine.start()
-        }
-        .onDisappear {
-            engine.stop()
+            }
+            .frame(minWidth: 400, minHeight: 120)
+            .background(WindowConfigurator())
+            .task {
+                await engine.start()
+            }
+            .onDisappear {
+                engine.stop()
+            }
         }
     }
 
