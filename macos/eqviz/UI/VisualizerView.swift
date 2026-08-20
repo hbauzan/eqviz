@@ -63,15 +63,10 @@ struct VisualizerLayout: Equatable {
     }
 }
 
-/// Placeholder palette (08). Five named styles land in 09.
-private enum VisualizerPlaceholder {
-    static let lit = Color(.sRGB, red: 1, green: 0.15, blue: 0.1, opacity: 1)
-    static let unlit = Color(.sRGB, red: 0.12, green: 0.02, blue: 0.02, opacity: 1)
-}
-
 /// Segmented bars drawn in one Canvas. Host must tick peaks once per display frame; this view only copies and paints.
 struct VisualizerView: View {
     let peaks: [Float]
+    var style: VisualizerStyle = .retroRed
 
     var body: some View {
         Canvas { context, size in
@@ -79,11 +74,17 @@ struct VisualizerView: View {
             let layout = VisualizerLayout.fitting(in: size)
             guard layout.cell > 0 else { return }
             let local = peaks
+            let style = style
             for band in 0..<layout.bandCount {
                 let peak: Float = band < local.count ? local[band] : 0
                 let lit = VisualizerLayout.litCount(peak: peak, segments: layout.segmentCount)
                 for segment in 0..<layout.segmentCount {
-                    let color = segment < lit ? VisualizerPlaceholder.lit : VisualizerPlaceholder.unlit
+                    let color = VisualizerPalette.color(
+                        style: style,
+                        band: band,
+                        segment: segment,
+                        lit: segment < lit
+                    )
                     context.fill(
                         Path(roundedRect: layout.rect(band: band, segment: segment), cornerRadius: 0),
                         with: .color(color)
