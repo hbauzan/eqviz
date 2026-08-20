@@ -42,6 +42,10 @@ Ejecutá vía `./setup.sh` → build → run.
 
 Dejá una nota corta en `CHANGELOG.md` [Unreleased] o en el handoff: “verificado en &lt;chip&gt;, macOS &lt;versión&gt;, CPU ~X%”. Si no corriste en hardware real, **no** tildes este paso.
 
+## Resultado (2026-08-20)
+
+Darwin arm64, humano. 1–8 y 10–11 OK. TCC ya otorgado (05/08). CPU Debug **~30%** (goal 1–2%); el usuario pidió shippear y revisar alternativas. `STATUS.md` 12 `[x]` con esa salvedad.
+
 ## Definition of Done
 
 - [ ] Checklist 1–11 OK en Darwin arm64 real.

@@ -69,28 +69,110 @@ struct VisualizerView: View {
     var style: VisualizerStyle = .retroRed
 
     var body: some View {
-        Canvas { context, size in
-            context.fill(Path(CGRect(origin: .zero, size: size)), with: .color(.black))
-            let layout = VisualizerLayout.fitting(in: size)
-            guard layout.cell > 0 else { return }
-            let local = peaks
-            let style = style
-            for band in 0..<layout.bandCount {
-                let peak: Float = band < local.count ? local[band] : 0
-                let lit = VisualizerLayout.litCount(peak: peak, segments: layout.segmentCount)
-                for segment in 0..<layout.segmentCount {
-                    let color = VisualizerPalette.color(
-                        style: style,
-                        band: band,
-                        segment: segment,
-                        lit: segment < lit
-                    )
-                    context.fill(
-                        Path(roundedRect: layout.rect(band: band, segment: segment), cornerRadius: 0),
-                        with: .color(color)
-                    )
+        Canvas(opaque: true) { context, size in
+            VisualizerPainter.paint(peaks: peaks, style: style, context: context, size: size)
+        }
+    }
+}
+
+/// Same pixels as 512 rect fills; fewer `context.fill` calls by grouping equal colors.
+enum VisualizerPainter {
+    static func paint(peaks: [Float], style: VisualizerStyle, context: GraphicsContext, size: CGSize) {
+        context.fill(Path(CGRect(origin: .zero, size: size)), with: .color(.black))
+        let layout = VisualizerLayout.fitting(in: size)
+        guard layout.cell > 0 else { return }
+        switch style {
+        case .retroRed, .whiteMatrix:
+            paintUniform(peaks: peaks, style: style, layout: layout, context: context)
+        case .rainbowSpectrum:
+            paintByBand(peaks: peaks, style: style, layout: layout, context: context)
+        case .fireGradient, .cyberNeon:
+            paintBySegment(peaks: peaks, style: style, layout: layout, context: context)
+        }
+    }
+
+    private static func paintUniform(
+        peaks: [Float],
+        style: VisualizerStyle,
+        layout: VisualizerLayout,
+        context: GraphicsContext
+    ) {
+        var litPath = Path()
+        var unlitPath = Path()
+        for band in 0..<layout.bandCount {
+            let lit = VisualizerLayout.litCount(peak: peak(peaks, band), segments: layout.segmentCount)
+            for segment in 0..<layout.segmentCount {
+                let rect = layout.rect(band: band, segment: segment)
+                if segment < lit {
+                    litPath.addRect(rect)
+                } else {
+                    unlitPath.addRect(rect)
                 }
             }
         }
+        context.fill(unlitPath, with: .color(VisualizerPalette.color(style: style, band: 0, segment: 0, lit: false)))
+        context.fill(litPath, with: .color(VisualizerPalette.color(style: style, band: 0, segment: 0, lit: true)))
+    }
+
+    private static func paintByBand(
+        peaks: [Float],
+        style: VisualizerStyle,
+        layout: VisualizerLayout,
+        context: GraphicsContext
+    ) {
+        for band in 0..<layout.bandCount {
+            let lit = VisualizerLayout.litCount(peak: peak(peaks, band), segments: layout.segmentCount)
+            var litPath = Path()
+            var unlitPath = Path()
+            for segment in 0..<layout.segmentCount {
+                let rect = layout.rect(band: band, segment: segment)
+                if segment < lit {
+                    litPath.addRect(rect)
+                } else {
+                    unlitPath.addRect(rect)
+                }
+            }
+            context.fill(
+                unlitPath,
+                with: .color(VisualizerPalette.color(style: style, band: band, segment: 0, lit: false))
+            )
+            context.fill(
+                litPath,
+                with: .color(VisualizerPalette.color(style: style, band: band, segment: 0, lit: true))
+            )
+        }
+    }
+
+    private static func paintBySegment(
+        peaks: [Float],
+        style: VisualizerStyle,
+        layout: VisualizerLayout,
+        context: GraphicsContext
+    ) {
+        for segment in 0..<layout.segmentCount {
+            var litPath = Path()
+            var unlitPath = Path()
+            for band in 0..<layout.bandCount {
+                let lit = VisualizerLayout.litCount(peak: peak(peaks, band), segments: layout.segmentCount)
+                let rect = layout.rect(band: band, segment: segment)
+                if segment < lit {
+                    litPath.addRect(rect)
+                } else {
+                    unlitPath.addRect(rect)
+                }
+            }
+            context.fill(
+                unlitPath,
+                with: .color(VisualizerPalette.color(style: style, band: 0, segment: segment, lit: false))
+            )
+            context.fill(
+                litPath,
+                with: .color(VisualizerPalette.color(style: style, band: 0, segment: segment, lit: true))
+            )
+        }
+    }
+
+    private static func peak(_ peaks: [Float], _ band: Int) -> Float {
+        band < peaks.count ? peaks[band] : 0
     }
 }

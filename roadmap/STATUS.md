@@ -13,5 +13,5 @@ Marcá `- [x]` solo cuando el Definition of Done del prompt se cumplió **y** se
 - [x] [09-visualizer-styles.md](./09-visualizer-styles.md) — 5 estilos
 - [x] [10-content-view.md](./10-content-view.md) — hover chrome + selector
 - [x] [11-setup-sh.md](./11-setup-sh.md) — menú admin cableado a xcodebuild
-- [ ] [12-verify-run.md](./12-verify-run.md) — ejecución real en Apple Silicon
-- [ ] [13-docs-sync.md](./13-docs-sync.md) — docs alineadas a cómo se corre
+- [x] [12-verify-run.md](./12-verify-run.md) — ejecución real en Apple Silicon
+- [x] [13-docs-sync.md](./13-docs-sync.md) — docs alineadas a cómo se corre
