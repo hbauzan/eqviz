@@ -10,6 +10,7 @@ Registra invariantes de arquitectura y patrones descubiertos acá. Si existe, lo
 
 - **eqviz** is an **ultralight real-time audio graphic visualizer**.
 - Do not import VHectorLab / embedding / WebGL-lab invariants here. This is a different product.
+- **Public lab (2026-08-20):** repo stays public with agent kitchen (`roadmap/`, `.agents/`). License is **CC BY 4.0** — use, fork, modify, cite [hbauzan/eqviz](https://github.com/hbauzan/eqviz). Human README is Spanish; agent contract stays in `roadmap/00-invariants.md`.
 
 ## 2. Design constraints (bootstrap)
 
