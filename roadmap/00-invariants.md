@@ -38,7 +38,7 @@ seguida de la decisión concreta (qué se autoriza). Sin esa frase, una preferen
 - **App:** Swift + SwiftUI. Layout: `macos/eqviz/` + XcodeGen `project.yml`.
 - **PoC:** Bundle ID `dev.local.eqviz`. Firma Personal Team (no Team ID en git). Sandbox **OFF**.
 - **Host tools:** las instala el humano (Homebrew, Xcode, XcodeGen). El agente no corre `brew install` ni instaladores de sistema. Si falta algo: STOP + comando para el humano.
-- **Tooling de desarrollo:** `./setup.sh` (y `uv` para lint/tests/hooks del repo).
+- **Tooling de desarrollo:** `./setup.sh` (y `uv` para lint/tests/hooks del repo). Tests, build, run y cualquier chore repetible van por un ítem del menú (o su subcomando). No pegar `xcodebuild`/`pytest` crudos al humano; si aparece un test o tarea nueva, cableala al menú en el mismo cambio.
 - **Captura v1:** entrada por defecto de macOS (`AVAudioEngine.inputNode`). Seguir el device que la Mac tenga seleccionado; reinstalar tap en route change.
 - **Captura v2:** audio de sistema solo si el usuario dice que v1 no cumple expectativas. Hasta entonces, prohibido.
 - **Ventana PoC:** 800×240. Always-on-top y close-vs-hide siguen STOP.
@@ -93,7 +93,7 @@ Todo prompt tiene “Definition of Done”. No marques `STATUS.md` si:
 - el proyecto no compila (cuando el paso ya tiene target compilable)
 - dejaste un `TODO`
 - asumiste una respuesta de un STOP
-- no corriste el comando de verificación listado en el prompt
+- no corriste la verificación **vía `./setup.sh`** (ítem de menú o subcomando; no un `xcodebuild` suelto en el handoff)
 
 ## Relación con el bootstrap actual
 

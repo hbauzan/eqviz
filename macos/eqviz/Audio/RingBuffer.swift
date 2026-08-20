@@ -6,6 +6,7 @@ final class RingBuffer: @unchecked Sendable {
     private var storage: [Float]
     private let capacity: Int
     private var writeIndex = 0
+    private var readIndex = 0
     private var filled = 0
 
     init(capacity: Int) {
@@ -22,11 +23,31 @@ final class RingBuffer: @unchecked Sendable {
             storage[writeIndex] = src[i]
             writeIndex += 1
             if writeIndex == capacity { writeIndex = 0 }
-            if filled < capacity { filled += 1 }
+            if filled < capacity {
+                filled += 1
+            } else {
+                readIndex += 1
+                if readIndex == capacity { readIndex = 0 }
+            }
         }
     }
 
-    /// Most recent `count` samples, oldest-first. Nil if not enough data yet.
+    /// Consuming read, oldest-first. Advances the read pointer (hop without overlap).
+    func read(_ count: Int) -> [Float]? {
+        lock.lock()
+        defer { lock.unlock() }
+        guard count > 0, filled >= count else { return nil }
+        var out = [Float](repeating: 0, count: count)
+        for i in 0..<count {
+            out[i] = storage[readIndex]
+            readIndex += 1
+            if readIndex == capacity { readIndex = 0 }
+        }
+        filled -= count
+        return out
+    }
+
+    /// Most recent `count` samples, oldest-first. Nil if not enough data yet. Peek; does not consume.
     func readLatest(_ count: Int) -> [Float]? {
         lock.lock()
         defer { lock.unlock() }
