@@ -28,7 +28,7 @@ Este SKILL.md es el **router liviano**: contiene lo que se necesita siempre (rol
 | [code-design.md](./code-design.md) | diseñás módulos, hacés TDD o cortás vertical slices |
 | [debugging.md](./debugging.md) | hay un bug o tests rojos → loop estructurado de 6 fases |
 | [qa-review.md](./qa-review.md) | revisás un diff (dos ejes) o convertís problemas en issues |
-| [git-workflow.md](./git-workflow.md) | vas a commitear, configurar pre-commit o entregar (push/merge) |
+| [git-workflow.md](./git-workflow.md) | vas a commitear, configurar pre-commit, entregar (push/merge), o el repo es/queda público (About + topics) |
 | [documentation.md](./documentation.md) | cambió un contrato/docs → sync **condicional** (manifest/CHANGELOG/spec/README/CONTEXT) |
 | [templates/](./templates/) | base copy-to-root: `.pre-commit-config.yaml`, `.env.example` |
 
@@ -58,7 +58,7 @@ Invocada así, el agente corre el **ciclo estándar** end-to-end por su cuenta, 
 5. **Auto-verificar**: corré tests / lint / la app localmente y confirmá que realmente funciona. Dejalo en verde antes de involucrar al usuario.
 6. **Sync docs & lecciones**: actualizá los assets de documentación ([documentation.md](./documentation.md)). Si descubriste una invariante de *este* producto y el repo ya tiene `.agents/lessons-learned.md`, registrala ahí. No creés ese archivo adentro de esta skill.
 7. **Hand off — APPROVAL GATE**: reportá qué cambió y cómo se verificó, decile al usuario exactamente cómo probarlo, y **ESPERÁ**. No hagas push ni merge todavía.
-8. **Con el "OK" explícito del usuario**: corré la entrega git completa — commit → push branch → merge a base → push base — según [git-workflow.md](./git-workflow.md) §3.
+8. **Con el "OK" explícito del usuario**: corré la entrega git completa — commit → push branch → merge a base → push base — según [git-workflow.md](./git-workflow.md) §3. Si el remoto es **público**, también el GitHub About (description + topics) — §3.6.
 9. **Pará y preguntá si se complica**: si algo del paso 8 no es trivial (conflicto de merge, hook/CI rojo, rama divergida o protegida, scope ambiguo), **DETENTE y preguntá** ([git-workflow.md](./git-workflow.md) §3.3).
 
 ***

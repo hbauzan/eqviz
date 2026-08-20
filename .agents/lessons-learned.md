@@ -11,6 +11,7 @@ Registra invariantes de arquitectura y patrones descubiertos acá. Si existe, lo
 - **eqviz** is an **ultralight real-time audio graphic visualizer**.
 - Do not import VHectorLab / embedding / WebGL-lab invariants here. This is a different product.
 - **Public lab (2026-08-20):** repo stays public with agent kitchen (`roadmap/`, `.agents/`). License is **CC BY 4.0** — use, fork, modify, cite [hbauzan/eqviz](https://github.com/hbauzan/eqviz). Human README is Spanish; agent contract stays in `roadmap/00-invariants.md`.
+- **GitHub About (2026-08-20):** the profile Repositories tab needs a description **and** topic pills or it looks unpublished (same pattern as vhectorlab). Topics locked: `macos`, `swift`, `swiftui`, `audio-visualizer`, `fft`, `music`, `apple-silicon`. Set with `gh repo edit --add-topic`. Description stays the Spanish one-liner, not the English stub. Process rule for any public repo: `dev-protocol` [git-workflow.md](skills/dev-protocol/git-workflow.md) §3.6.
 
 ## 2. Design constraints (bootstrap)
 
