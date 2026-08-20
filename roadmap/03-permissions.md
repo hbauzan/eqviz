@@ -55,10 +55,10 @@ Aún **no** debe aparecer el diálogo TCC: no hay `engine.start()`. Si al correr
 
 ## Definition of Done
 
-- [ ] Plist: `NSMicrophoneUsageDescription` con copy aprobado. Sin sandbox.
-- [ ] Copy TCC es el aprobado, no uno inventado.
-- [ ] Build 0. App corre igual que en 02 (ventana negra, sin diálogo de permiso).
-- [ ] `STATUS.md` 03 `[x]`.
+- [x] Plist: `NSMicrophoneUsageDescription` con copy aprobado. Sin sandbox.
+- [x] Copy TCC es el aprobado, no uno inventado.
+- [x] Build 0. App corre igual que en 02 (ventana negra, sin diálogo de permiso).
+- [x] `STATUS.md` 03 `[x]`.
 
 ## Fuera de alcance
 

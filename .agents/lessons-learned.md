@@ -39,6 +39,9 @@ Registra invariantes de arquitectura y patrones descubiertos acá. Si existe, lo
 - **CLI build:** `xcodebuild` may fail with IDESimulatorFoundation plugin errors until `xcodebuild -runFirstLaunch` (Xcode system content, not Homebrew). Do not `brew install` Xcode. If it needs sudo/GUI, STOP and ask the human.
 - **Ad-hoc signing:** `CODE_SIGN_IDENTITY: "-"` + `CODE_SIGNING_REQUIRED: NO` lets CLI Debug builds succeed without a Team ID in git. Human still selects Personal Team in Xcode for interactive runs.
 - **Sandbox:** OFF for this PoC. Turning it on is explicit later “prolijo” work.
+- **TCC source of truth (03):** `NSMicrophoneUsageDescription` lives only in `macos/eqviz/Info.plist`. Do not also set `INFOPLIST_KEY_NSMicrophoneUsageDescription` in `project.yml` (duplicate keys).
+- **No entitlements file (03):** Debug build succeeded without `eqviz.entitlements`, without `com.apple.security.device.audio-input`, and without `com.apple.security.app-sandbox`. Xcode still injects Debug-only `com.apple.security.get-task-allow`. Add `audio-input` only if a later `xcodebuild`/TCC path fails without it.
+- **Inspecting the built plist:** `plutil -p …/eqviz.app/Contents/Info.plist` is reliable. `defaults read …/Contents/Info` can fail against a file path even when the key is present.
 
 ## 2.3. Performance invariants (for when the visualizer exists)
 
