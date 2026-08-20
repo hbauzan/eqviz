@@ -53,7 +53,7 @@ No inventes. No uses `SECURITY OVERRIDE` que no escribió el humano.
 2. **10 — STOP residual 01-D (no implementes hasta respuesta):**
    - ventana normal vs flotante / always-on-top
    - close: termina el proceso vs solo oculta
-   - semáforos nativos vs botones custom en hover  
+   - semáforos nativos vs botones custom en hover
    Mientras tanto podés hacer hover chrome + selector de 5 estilos + **minimize** (`miniaturize`). **No** `window.level`. **No** asumas terminate vs hide.
 3. **12 entero:** checklist en hardware Darwin arm64 real (TCC, señal, 5 estilos, hover, CPU, resize, permiso denegado). Si no hay GUI/humano: reportá y no tildes 12.
 4. **13:** no lo corras hasta 12 `[x]` (docs de la app que *corre*).
