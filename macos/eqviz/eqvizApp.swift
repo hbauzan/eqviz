@@ -4,9 +4,10 @@ import SwiftUI
 struct EqvizApp: App {
     var body: some Scene {
         Window("eqviz", id: "main") {
-            Color.black
-                .ignoresSafeArea()
+            ContentView()
         }
+        .windowStyle(.hiddenTitleBar)
         .defaultSize(width: 800, height: 240)
+        .windowResizability(.contentMinSize)
     }
 }
