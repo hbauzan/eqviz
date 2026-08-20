@@ -81,11 +81,11 @@ Medí que **no** estás invalidando toda la vista 86 veces/seg: el overlay DEBUG
 
 ## Definition of Done
 
-- [ ] Adapter `InputNodeCapture` solamente (default input).
-- [ ] Tap copia PCM; cola serial; UI state de baja frecuencia.
-- [ ] Route / default-device change no deja el tap muerto.
-- [ ] Permiso denegado no crashea.
-- [ ] Cero FFT. Cero SCK. `STATUS.md` 05 `[x]`.
+- [x] Adapter `InputNodeCapture` solamente (default input).
+- [x] Tap copia PCM; cola serial; UI state de baja frecuencia.
+- [x] Route / default-device change no deja el tap muerto.
+- [x] Permiso denegado no crashea.
+- [x] Cero FFT. Cero SCK. `STATUS.md` 05 `[x]`.
 
 ## Fuera de alcance
 
