@@ -17,3 +17,9 @@ build/
 htmlcov/
 
 context.txt
+
+macos/build/
+macos/eqviz.xcodeproj/xcuserdata/
+macos/eqviz.xcodeproj/project.xcworkspace/xcuserdata/
+DerivedData/
+*.xcuserstate
