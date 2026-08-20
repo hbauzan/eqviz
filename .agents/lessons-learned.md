@@ -28,7 +28,7 @@ Registra invariantes de arquitectura y patrones descubiertos acá. Si existe, lo
 
 - **App:** Swift + SwiftUI in `macos/eqviz/`. XcodeGen `project.yml`.
 - **Tooling:** `./setup.sh` + Python/`uv`. Do not implement the visualizer in Python. Do not delete the Python bootstrap.
-- **setup.sh is the chore funnel (2026-08-20):** every test, build, run, lint, or other repeatable task goes through a `./setup.sh` menu item (and its CLI alias). Never hand the human a raw `xcodebuild` / `pytest` / `ruff` recipe. If you add a test target or a new chore, wire it to the menu in the same change. macOS tests: option 11 / `./setup.sh test-mac`. Step 11 still owns verifying the full menu; this rule applies from now on.
+- **setup.sh is the chore funnel (2026-08-20):** every test, build, run, lint, or other repeatable task goes through a `./setup.sh` menu item (and its CLI alias). Never hand the human a raw `xcodebuild` / `pytest` / `ruff` recipe. If you add a test target or a new chore, wire it to the menu in the same change. macOS tests: option 11 / `./setup.sh test-mac`. DerivedData is `$ROOT/macos/build` (gitignored). Stop lists PIDs and asks y/N before SIGTERM; KILL is a second prompt. Never `pkill -9` from the agent.
 - **PoC identity:** Bundle ID `dev.local.eqviz`. Not a distribution identity; changing it later resets mic TCC.
 - **Signing:** Personal Team (free). Do not put `DEVELOPMENT_TEAM` in git. Human picks the team once in Xcode.
 - **Host tools:** Human installs Homebrew/Xcode/XcodeGen. Agent never `brew install`. If a binary is missing: STOP and print the command.
