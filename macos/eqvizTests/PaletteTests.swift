@@ -54,4 +54,24 @@ final class PaletteTests: XCTestCase {
         XCTAssertGreaterThan(low.r, low.g)
         XCTAssertGreaterThan(low.r, low.b)
     }
+
+    func testUniformStylesIgnoreBandAndSegment() {
+        for style in [VisualizerStyle.retroRed, .whiteMatrix] {
+            let origin = VisualizerPalette.rgb(style: style, band: 0, segment: 0, lit: true)
+            let far = VisualizerPalette.rgb(style: style, band: 31, segment: 15, lit: true)
+            XCTAssertEqual(origin.r, far.r, accuracy: 1e-6)
+            XCTAssertEqual(origin.g, far.g, accuracy: 1e-6)
+            XCTAssertEqual(origin.b, far.b, accuracy: 1e-6)
+        }
+    }
+
+    func testFireAndCyberAreConstantAcrossBands() {
+        for style in [VisualizerStyle.fireGradient, .cyberNeon] {
+            let a = VisualizerPalette.rgb(style: style, band: 0, segment: 8, lit: true)
+            let b = VisualizerPalette.rgb(style: style, band: 31, segment: 8, lit: true)
+            XCTAssertEqual(a.r, b.r, accuracy: 1e-6)
+            XCTAssertEqual(a.g, b.g, accuracy: 1e-6)
+            XCTAssertEqual(a.b, b.b, accuracy: 1e-6)
+        }
+    }
 }

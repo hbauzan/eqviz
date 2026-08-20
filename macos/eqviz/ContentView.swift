@@ -6,35 +6,35 @@ struct ContentView: View {
     @State private var hovering = false
 
     var body: some View {
-        TimelineView(.animation(minimumInterval: 1.0 / 120.0)) { timeline in
-            let _ = engine.tickPeaks(at: timeline.date)
-            let peaks = engine.peaks.copy()
-            ZStack(alignment: .top) {
-                VisualizerView(peaks: peaks, style: style)
+        ZStack(alignment: .top) {
+            TimelineView(.animation(minimumInterval: 1.0 / 120.0)) { timeline in
+                let _ = engine.tickPeaks(at: timeline.date)
+                VisualizerView(peaks: engine.peaks.copy(), style: style)
                     .ignoresSafeArea()
-                HoverChrome(style: $style, hovering: hovering)
+            }
+            HoverChrome(style: $style, hovering: hovering)
 #if DEBUG
-                VStack {
+            VStack {
+                Spacer()
+                HStack {
+                    Text(debugStatus)
+                        .font(.system(size: 12, design: .monospaced))
+                        .foregroundStyle(Color(white: 0.4))
+                        .padding(8)
                     Spacer()
-                    HStack {
-                        Text(debugStatus)
-                            .font(.system(size: 12, design: .monospaced))
-                            .foregroundStyle(Color(white: 0.4))
-                            .padding(8)
-                        Spacer()
-                    }
                 }
+            }
+            .allowsHitTesting(false)
 #endif
-            }
-            .frame(minWidth: 400, minHeight: 120)
-            .background(WindowConfigurator())
-            .onHover { hovering = $0 }
-            .task {
-                await engine.start()
-            }
-            .onDisappear {
-                engine.stop()
-            }
+        }
+        .frame(minWidth: 400, minHeight: 120)
+        .background(WindowConfigurator())
+        .onHover { hovering = $0 }
+        .task {
+            await engine.start()
+        }
+        .onDisappear {
+            engine.stop()
         }
     }
 
