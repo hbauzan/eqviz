@@ -38,4 +38,21 @@ targets:
         INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.music
         INFOPLIST_KEY_NSHighResolutionCapable: YES
     scheme:
-      testTargets: []
+      testTargets:
+        - eqvizTests
+
+  eqvizTests:
+    type: bundle.unit-test
+    platform: macOS
+    deploymentTarget: "14.0"
+    sources:
+      - path: eqvizTests
+      - path: eqviz/DSP
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: dev.local.eqviz.tests
+        GENERATE_INFOPLIST_FILE: YES
+        SWIFT_VERSION: "5.0"
+        MACOSX_DEPLOYMENT_TARGET: "14.0"
+        CODE_SIGN_IDENTITY: "-"
+        CODE_SIGNING_REQUIRED: NO
