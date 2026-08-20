@@ -55,6 +55,8 @@ Default sequence once the user approves:
 
 > Alternative: if the repo works through pull requests, substitute steps 4–5 with `gh pr create` + merge. Default to the direct merge above unless the user or repo conventions say otherwise.
 
+If the remote is **public** (or the user just made it public), run §3.6 in the same delivery — don't leave the GitHub About blank.
+
 ### 3.3. Stop-and-Ask Conditions ("when it gets complicated")
 **Pause and ask the user** before continuing if any of these arise during delivery:
 - Merge conflicts, or the base branch has diverged / moved since branching.
@@ -74,3 +76,20 @@ These are **not** part of the normal flow and risk irreversible data loss. Never
 
 ### 3.5. Claude Code Integration
 Optionally register a `PreToolUse` matcher hook (e.g., `.claude/hooks/block-dangerous-git.sh`) that intercepts **only the §3.4 destructive commands**. `git push` and `git merge` must **not** be blocked — they are governed by the approval gate (§3.1), not by a hook.
+
+### 3.6. Public GitHub About (topics + description)
+
+A public repo without **topics** looks unpublished. On the profile Repositories tab, topics are the colored pills under the description (`education`, `webgl`, `fastapi`, …). They are **not** git tags and they **do not live in the tree**.
+
+When the remote is public, or the user asks to publish / “dejarlo como publicado”:
+
+1. **Description** — one line via `gh repo edit -d "…"`. What it is, and what it isn't if it's a lab/PoC. Match the README language. Don't leave the create-repo stub.
+2. **Topics** — 5–8 pills via `gh repo edit --add-topic <slug>` (repeat). Lowercase, hyphens, max 20. Mix **stack + domain** (e.g. `macos` + `swift` + `audio-visualizer`). Derive from the README; if `.agents/lessons-learned.md` already lists topics for this product, use those — don't invent a second taxonomy.
+3. **License badge** — GitHub only shows it if `LICENSE` is detectable. Confirm `gh repo view --json licenseInfo`.
+
+```bash
+gh repo edit -d "one-line description"
+gh repo edit --add-topic stack --add-topic domain --add-topic …
+```
+
+Do this as part of public delivery, not as an afterthought. Recreating the GitHub repo wipes topics unless you set them again.
