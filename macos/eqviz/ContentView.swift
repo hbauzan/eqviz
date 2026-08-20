@@ -2,13 +2,14 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var engine = AudioEngine()
+    @State private var style: VisualizerStyle = .retroRed
 
     var body: some View {
         TimelineView(.animation(minimumInterval: 1.0 / 120.0)) { timeline in
             let _ = engine.tickPeaks(at: timeline.date)
             let peaks = engine.peaks.copy()
             ZStack(alignment: .bottomLeading) {
-                VisualizerView(peaks: peaks)
+                VisualizerView(peaks: peaks, style: style)
                     .ignoresSafeArea()
 #if DEBUG
                 Text(debugStatus)
