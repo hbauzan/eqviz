@@ -32,18 +32,21 @@ Verbatim: el usuario instala las cosas **fuera** del repo (Homebrew, XcodeGen, e
 
 `xcodegen`: el usuario ya lo instaló.
 
-## D / E — LOCKED en parte (2026-08-20)
+## D / E — LOCKED (2026-08-20)
 
 - Tamaño de ventana: **800×240**.
 - TCC mic, verbatim (no ampliar): `eqviz does not record or send audio.`
+- Ventana: **normal** (no flotante, no always-on-top, no `window.level`).
+- Close: **termina el proceso** (`applicationShouldTerminateAfterLastWindowClosed`).
+- Semáforos: **nativos** (close / miniaturize / zoom). Hover chrome = selector de estilos, no `×`/`−` custom.
 
-## STOP residual (04 / 09 / 10)
+## STOP residual
 
-1. Ventana normal vs widget flotante (`floating` / always-on-top).
-2. Close: termina el proceso vs solo oculta la ventana.
-3. Semáforos nativos vs botones custom en hover.
-4. Segmentos apagados: dim VFD vs negro OLED.
-5. Labels del selector: en / es / iconos.
+1. ~~Ventana normal vs widget flotante~~ — **normal**, 2026-08-20.
+2. ~~Close: termina vs oculta~~ — **termina**, 2026-08-20.
+3. ~~Semáforos nativos vs custom~~ — **nativos**, 2026-08-20.
+4. Segmentos apagados: dim VFD vs negro OLED — default técnico VFD dim; `whiteMatrix` unlit negro (09).
+5. Labels del selector: **en** locked en 09 (`"Retro Red"`, etc.).
 
 ## Qué no hacer (sigue vigente)
 
@@ -74,5 +77,8 @@ Verbatim: el usuario instala las cosas **fuera** del repo (Homebrew, XcodeGen, e
 | App Sandbox | OFF (PoC). On = trabajo “prolijo” posterior | 2026-08-20 |
 | Host tools | Las instala el humano (brew/Xcode/xcodegen). El agente no. | 2026-08-20 |
 | Ventana size | 800×240 | 2026-08-20 |
+| Ventana tipo | Normal; no floating / always-on-top; no `window.level` | 2026-08-20 |
+| Close | Termina el proceso (última ventana) | 2026-08-20 |
+| Semáforos | Nativos (close / min / zoom) | 2026-08-20 |
 | TCC mic | `eqviz does not record or send audio.` (verbatim) | 2026-08-20 |
 | Python bootstrap | Conservar; no es el producto | 2026-08-20 |
