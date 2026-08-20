@@ -35,6 +35,10 @@ Reglas:
 | 11 | [11-setup-sh.md](./11-setup-sh.md) | Acciones admin reales para la app | sí |
 | 12 | [12-verify-run.md](./12-verify-run.md) | Corrida en Mac Apple Silicon | sí |
 | 13 | [13-docs-sync.md](./13-docs-sync.md) | README / CONTEXT / CHANGELOG | sí |
+| 14 | [14-cpu-display-60.md](./14-cpu-display-60.md) | 60 Hz, solo lit | sí |
+| 15 | [15-cpu-release-profile.md](./15-cpu-release-profile.md) | Medir Release + Instruments | sí |
+| 16 | [16-cpu-window-move.md](./16-cpu-window-move.md) | Pico al arrastrar la ventana | sí |
+| 17 | [17-cpu-metal.md](./17-cpu-metal.md) | Renderer más liviano (STOP: A/B/C/D) | sí |
 
 ## Extra de producto (ya creado, no es un prompt de implementación)
 
@@ -47,4 +51,4 @@ Reglas:
 - **PoC:** Bundle ID `dev.local.eqviz`, Personal Team (set in Xcode, not in git), Sandbox OFF.
 - Captura v1: input default de macOS (`AVAudioEngine`). Sistema = solo si v1 no alcanza.
 - Ventana: normal, no always-on-top; close termina; semáforos nativos.
-- `STATUS.md` 01–13 `[x]`. Extra de producto: CPU Debug ~30% (goal 1–2%).
+- Display: **60 Hz**; unlit **no se pinta**. CPU: seguí 15–17.

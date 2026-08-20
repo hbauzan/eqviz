@@ -45,7 +45,7 @@ Verbatim: el usuario instala las cosas **fuera** del repo (Homebrew, XcodeGen, e
 1. ~~Ventana normal vs widget flotante~~ — **normal**, 2026-08-20.
 2. ~~Close: termina vs oculta~~ — **termina**, 2026-08-20.
 3. ~~Semáforos nativos vs custom~~ — **nativos**, 2026-08-20.
-4. Segmentos apagados: dim VFD vs negro OLED — default técnico VFD dim; `whiteMatrix` unlit negro (09).
+4. Segmentos apagados: **no se dibujan** (canvas negro OLED). Locked 2026-08-20.
 5. Labels del selector: **en** locked en 09 (`"Retro Red"`, etc.).
 
 ## Qué no hacer (sigue vigente)

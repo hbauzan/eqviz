@@ -15,3 +15,7 @@ Marcá `- [x]` solo cuando el Definition of Done del prompt se cumplió **y** se
 - [x] [11-setup-sh.md](./11-setup-sh.md) — menú admin cableado a xcodebuild
 - [x] [12-verify-run.md](./12-verify-run.md) — ejecución real en Apple Silicon
 - [x] [13-docs-sync.md](./13-docs-sync.md) — docs alineadas a cómo se corre
+- [x] [14-cpu-display-60.md](./14-cpu-display-60.md) — 60 Hz, solo segmentos lit
+- [ ] [15-cpu-release-profile.md](./15-cpu-release-profile.md) — medir Release + Instruments
+- [ ] [16-cpu-window-move.md](./16-cpu-window-move.md) — pico de CPU al arrastrar (~40%)
+- [ ] [17-cpu-metal.md](./17-cpu-metal.md) — renderer más liviano (STOP: elegir A/B/C/D)

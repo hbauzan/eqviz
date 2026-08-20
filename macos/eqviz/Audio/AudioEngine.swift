@@ -98,7 +98,7 @@ final class AudioEngine {
         if let last = lastPeakTick {
             dt = max(0, date.timeIntervalSince(last))
         } else {
-            dt = 1.0 / 120.0
+            dt = DisplayClock.frameDuration
         }
         lastPeakTick = date
         peaks.write(peakDecay.tick(bands: spectrum.copy(), dt: dt))
