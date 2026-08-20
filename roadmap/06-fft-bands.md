@@ -84,10 +84,10 @@ DEBUG overlay: 32 números o un sparkline **no** es necesario si los tests pasan
 
 ## Definition of Done
 
-- [ ] vDSP real FFT, Hann, 2048, 32 bandas log, 0…1.
-- [ ] Snapshot con lock; SwiftUI no observa el array.
-- [ ] `DSPTests` verdes.
-- [ ] `STATUS.md` 06 `[x]`.
+- [x] vDSP real FFT, Hann, 2048, 32 bandas log, 0…1.
+- [x] Snapshot con lock; SwiftUI no observa el array.
+- [x] `DSPTests` verdes.
+- [x] `STATUS.md` 06 `[x]`.
 
 ## Fuera de alcance
 

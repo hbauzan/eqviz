@@ -33,7 +33,8 @@ struct ContentView: View {
             return "permission denied"
         }
         if engine.isRunning {
-            return engine.hasSignal ? "running · signal" : "running"
+            let maxBand = String(format: "%.2f", engine.debugBandMax)
+            return engine.hasSignal ? "running · signal · \(maxBand)" : "running · \(maxBand)"
         }
         return "stopped"
     }

@@ -2,6 +2,24 @@ import AVFoundation
 import Foundation
 import Observation
 
+/// Lock-protected 32-band snapshot. SwiftUI must copy(), not observe the array.
+final class SpectrumSnapshot: @unchecked Sendable {
+    private let lock = NSLock()
+    private var bands = [Float](repeating: 0, count: 32)
+
+    func write(_ src: [Float]) {
+        lock.lock()
+        bands = src
+        lock.unlock()
+    }
+
+    func copy() -> [Float] {
+        lock.lock()
+        defer { lock.unlock() }
+        return bands
+    }
+}
+
 /// UI-facing audio facade. Publishes only low-frequency state; PCM stays off the SwiftUI graph.
 @Observable
 final class AudioEngine {
@@ -10,11 +28,16 @@ final class AudioEngine {
     private(set) var permissionDenied = false
 #if DEBUG
     private(set) var hasSignal = false
+    private(set) var debugBandMax: Float = 0
 #endif
 
+    @ObservationIgnored let spectrum = SpectrumSnapshot()
     @ObservationIgnored private let capturer: InputNodeCapture
     @ObservationIgnored private let ring: RingBuffer
     @ObservationIgnored private let processQueue = DispatchQueue(label: "eqviz.audio", qos: .userInitiated)
+    @ObservationIgnored private let fft = FFTProcessor()
+    @ObservationIgnored private let normalizer = Normalizer()
+    @ObservationIgnored private var mapper: BandMapper?
     @ObservationIgnored private var pendingSignal = false
     @ObservationIgnored private var lastSignalPublish: CFAbsoluteTime = 0
 
@@ -23,8 +46,8 @@ final class AudioEngine {
         let capturer = InputNodeCapture()
         self.ring = ring
         self.capturer = capturer
-        capturer.onSamples = { [weak self] samples, _ in
-            self?.handleSamples(samples)
+        capturer.onSamples = { [weak self] samples, sampleRate in
+            self?.handleSamples(samples, sampleRate: sampleRate)
         }
         capturer.onError = { [weak self] error in
             DispatchQueue.main.async {
@@ -60,10 +83,11 @@ final class AudioEngine {
         isRunning = false
 #if DEBUG
         hasSignal = false
+        debugBandMax = 0
 #endif
     }
 
-    private func handleSamples(_ samples: UnsafeBufferPointer<Float>) {
+    private func handleSamples(_ samples: UnsafeBufferPointer<Float>, sampleRate: Double) {
         ring.write(samples)
         var peak: Float = 0
         for sample in samples {
@@ -72,7 +96,22 @@ final class AudioEngine {
         }
         let loud = peak > 0.001
         processQueue.async { [weak self] in
-            self?.noteSignal(loud)
+            self?.analyze(sampleRate: sampleRate, loud: loud)
+        }
+    }
+
+    private func analyze(sampleRate: Double, loud: Bool) {
+        noteSignal(loud)
+        while let frame = ring.read(FFTProcessor.size) {
+            guard let magnitudes = fft.process(frame) else { continue }
+            let mapper: BandMapper
+            if let current = self.mapper, current.sampleRate == sampleRate {
+                mapper = current
+            } else {
+                mapper = BandMapper(sampleRate: sampleRate)
+                self.mapper = mapper
+            }
+            spectrum.write(normalizer.process(mapper.map(magnitudes)))
         }
     }
 
@@ -84,8 +123,10 @@ final class AudioEngine {
         let flag = pendingSignal
         pendingSignal = false
 #if DEBUG
+        let maxBand = spectrum.copy().max() ?? 0
         DispatchQueue.main.async { [weak self] in
             self?.hasSignal = flag
+            self?.debugBandMax = maxBand
         }
 #endif
     }
