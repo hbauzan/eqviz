@@ -32,14 +32,17 @@ final class AudioEngine {
 #endif
 
     @ObservationIgnored let spectrum = SpectrumSnapshot()
+    @ObservationIgnored let peaks = SpectrumSnapshot()
     @ObservationIgnored private let capturer: InputNodeCapture
     @ObservationIgnored private let ring: RingBuffer
     @ObservationIgnored private let processQueue = DispatchQueue(label: "eqviz.audio", qos: .userInitiated)
     @ObservationIgnored private let fft = FFTProcessor()
     @ObservationIgnored private let normalizer = Normalizer()
+    @ObservationIgnored private let peakDecay = PeakDecay()
     @ObservationIgnored private var mapper: BandMapper?
     @ObservationIgnored private var pendingSignal = false
     @ObservationIgnored private var lastSignalPublish: CFAbsoluteTime = 0
+    @ObservationIgnored private var lastPeakTick: Date?
 
     init() {
         let ring = RingBuffer(capacity: 8192)
@@ -81,10 +84,24 @@ final class AudioEngine {
     func stop() {
         capturer.stop()
         isRunning = false
+        lastPeakTick = nil
 #if DEBUG
         hasSignal = false
         debugBandMax = 0
 #endif
+    }
+
+    /// Display-clock tick. Gravity uses real `dt`; do not call from the audio queue.
+    @MainActor
+    func tickPeaks(at date: Date) {
+        let dt: CFTimeInterval
+        if let last = lastPeakTick {
+            dt = max(0, date.timeIntervalSince(last))
+        } else {
+            dt = 1.0 / 120.0
+        }
+        lastPeakTick = date
+        peaks.write(peakDecay.tick(bands: spectrum.copy(), dt: dt))
     }
 
     private func handleSamples(_ samples: UnsafeBufferPointer<Float>, sampleRate: Double) {
