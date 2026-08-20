@@ -50,6 +50,8 @@ Registra invariantes de arquitectura y patrones descubiertos acá. Si existe, lo
 - **Hop / ring (06):** `RingBuffer.read(_:)` consumes. The tap copies then `processQueue.async` (`eqviz.audio`); FFT never runs in the capture callback and never on every 1024-sample tap buffer. `sampleRate` comes from `InputNodeCapture` into `BandMapper` — do not hardcode 44100 as the only runtime path.
 - **Tests (06):** target `eqvizTests` is a **logic** test (DSP sources compiled into the bundle, no `TEST_HOST`, no app launch). Hosting `eqviz.app` would auto-start capture via `ContentView.task`. Tests inject a synthetic sine; they must not touch the mic. Agent verifies with `./setup.sh test-mac` (that script already runs `xcodegen generate` + `xcodebuild test` against `macos/build`). Do not paste raw `xcodebuild` at the human.
 - **Seam for 07:** `spectrum.copy()` is the read path for display. Do not add `PeakDecay`, `withAnimation`, `Timer`, `Canvas`, or `TimelineView` here.
+- **Peak decay (07, 2026-08-20):** `PeakDecay.tick(bands:dt:)` — instant attack, linear gravity `1.2` amplitude units/second. Display clock only (`TimelineView(.animation(minimumInterval: 1/120))` in `ContentView` calling `AudioEngine.tickPeaks`). **Forbidden:** `withAnimation`, `Timer.scheduledTimer(1/120)`, decaying in the audio callback. `AudioEngine.peaks` is a second `SpectrumSnapshot` (lock); not `@Observable`. No Canvas yet — 08 draws inside this TimelineView.
+- **Verify via setup.sh:** `./setup.sh test-mac` (menu 11). Do not paste `xcodebuild test` at the human.
 
 ## 2.3. Performance invariants (for when the visualizer exists)
 

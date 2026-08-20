@@ -64,11 +64,11 @@ macos/eqvizTests/PeakDecayTests.swift
 
 ## Definition of Done
 
-- [ ] Picos independientes de las bandas instantáneas.
-- [ ] Caída en dt real (independiente de 60/120).
-- [ ] Tests verdes.
-- [ ] Nada de Canvas de bloques todavía (salvo TimelineView vacío).
-- [ ] `STATUS.md` 07 `[x]`.
+- [x] Picos independientes de las bandas instantáneas.
+- [x] Caída en dt real (independiente de 60/120).
+- [x] Tests verdes.
+- [x] Nada de Canvas de bloques todavía (salvo TimelineView vacío).
+- [x] `STATUS.md` 07 `[x]`.
 
 ## Fuera de alcance
 

@@ -17,9 +17,12 @@
 		2C07C59A81D7C358EA7D055D /* BandMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE434BDD57174F7C25A7CF6E /* BandMapper.swift */; };
 		6912BCB7CF785964C9153CBA /* FFTProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BE1CF0EF23E20E32963CFE /* FFTProcessor.swift */; };
 		7D9E1A357FA73A0A80D5F64A /* AudioCapturing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1058B902C34DEC5886CCBA3A /* AudioCapturing.swift */; };
+		83CED1800834A7821EC1E51F /* PeakDecayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE5047B5D0D34DB6F733833 /* PeakDecayTests.swift */; };
 		8D1D052855193253D20F75AA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786D467F6F748E7FD4F5C890 /* ContentView.swift */; };
 		9F98F97D12EB3A218D0CECDC /* WindowConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8119BCC516359F2E69386A6 /* WindowConfigurator.swift */; };
+		A25F3F62CA0D6BADB37D5E43 /* PeakDecay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA128FE2AD6D0DD159F3414 /* PeakDecay.swift */; };
 		B95D2A5921C44EE387155072 /* eqvizApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3AB042F8B4058A32DDE806 /* eqvizApp.swift */; };
+		D08E5790F4A7425B2F9829DE /* PeakDecay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA128FE2AD6D0DD159F3414 /* PeakDecay.swift */; };
 		FB7188C3092DB4064C382170 /* DSPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 553699FB74833C954C0DA57B /* DSPTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,8 +30,10 @@
 		1058B902C34DEC5886CCBA3A /* AudioCapturing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCapturing.swift; sourceTree = "<group>"; };
 		3665DDACD6517F5E96FF2DEA /* RingBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingBuffer.swift; sourceTree = "<group>"; };
 		457DE4A0F4E5CFBFCF23A430 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4DE5047B5D0D34DB6F733833 /* PeakDecayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeakDecayTests.swift; sourceTree = "<group>"; };
 		553699FB74833C954C0DA57B /* DSPTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSPTests.swift; sourceTree = "<group>"; };
 		5FE653EA4B3F54DE1C27CB32 /* InputNodeCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputNodeCapture.swift; sourceTree = "<group>"; };
+		6DA128FE2AD6D0DD159F3414 /* PeakDecay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeakDecay.swift; sourceTree = "<group>"; };
 		6E3AB042F8B4058A32DDE806 /* eqvizApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eqvizApp.swift; sourceTree = "<group>"; };
 		6E42C47DBEC1C72E083223E8 /* AudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngine.swift; sourceTree = "<group>"; };
 		786D467F6F748E7FD4F5C890 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -56,6 +61,7 @@
 				EE434BDD57174F7C25A7CF6E /* BandMapper.swift */,
 				99BE1CF0EF23E20E32963CFE /* FFTProcessor.swift */,
 				EA14F1D65CD9EDD0FC59FE2E /* Normalizer.swift */,
+				6DA128FE2AD6D0DD159F3414 /* PeakDecay.swift */,
 			);
 			path = DSP;
 			sourceTree = "<group>";
@@ -97,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				553699FB74833C954C0DA57B /* DSPTests.swift */,
+				4DE5047B5D0D34DB6F733833 /* PeakDecayTests.swift */,
 			);
 			path = eqvizTests;
 			sourceTree = "<group>";
@@ -178,6 +185,8 @@
 				FB7188C3092DB4064C382170 /* DSPTests.swift in Sources */,
 				21079FCEC8FD073F3A6A4B9F /* FFTProcessor.swift in Sources */,
 				0C890D9FFA0AF95D26D5861B /* Normalizer.swift in Sources */,
+				A25F3F62CA0D6BADB37D5E43 /* PeakDecay.swift in Sources */,
+				83CED1800834A7821EC1E51F /* PeakDecayTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -192,6 +201,7 @@
 				6912BCB7CF785964C9153CBA /* FFTProcessor.swift in Sources */,
 				237CAC8F691266C7605C4E06 /* InputNodeCapture.swift in Sources */,
 				01B6EA630605305A5363C494 /* Normalizer.swift in Sources */,
+				D08E5790F4A7425B2F9829DE /* PeakDecay.swift in Sources */,
 				1E6605C218A29F49FD9FABE1 /* RingBuffer.swift in Sources */,
 				9F98F97D12EB3A218D0CECDC /* WindowConfigurator.swift in Sources */,
 				B95D2A5921C44EE387155072 /* eqvizApp.swift in Sources */,
