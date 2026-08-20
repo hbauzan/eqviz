@@ -75,7 +75,7 @@ struct VisualizerView: View {
     }
 }
 
-/// Same pixels as 512 rect fills; fewer `context.fill` calls by grouping equal colors.
+/// Lit cells only. Unlit stays the opaque black canvas (OLED off).
 enum VisualizerPainter {
     static func paint(peaks: [Float], style: VisualizerStyle, context: GraphicsContext, size: CGSize) {
         context.fill(Path(CGRect(origin: .zero, size: size)), with: .color(.black))
@@ -98,19 +98,12 @@ enum VisualizerPainter {
         context: GraphicsContext
     ) {
         var litPath = Path()
-        var unlitPath = Path()
         for band in 0..<layout.bandCount {
             let lit = VisualizerLayout.litCount(peak: peak(peaks, band), segments: layout.segmentCount)
-            for segment in 0..<layout.segmentCount {
-                let rect = layout.rect(band: band, segment: segment)
-                if segment < lit {
-                    litPath.addRect(rect)
-                } else {
-                    unlitPath.addRect(rect)
-                }
+            for segment in 0..<lit {
+                litPath.addRect(layout.rect(band: band, segment: segment))
             }
         }
-        context.fill(unlitPath, with: .color(VisualizerPalette.color(style: style, band: 0, segment: 0, lit: false)))
         context.fill(litPath, with: .color(VisualizerPalette.color(style: style, band: 0, segment: 0, lit: true)))
     }
 
@@ -122,20 +115,11 @@ enum VisualizerPainter {
     ) {
         for band in 0..<layout.bandCount {
             let lit = VisualizerLayout.litCount(peak: peak(peaks, band), segments: layout.segmentCount)
+            guard lit > 0 else { continue }
             var litPath = Path()
-            var unlitPath = Path()
-            for segment in 0..<layout.segmentCount {
-                let rect = layout.rect(band: band, segment: segment)
-                if segment < lit {
-                    litPath.addRect(rect)
-                } else {
-                    unlitPath.addRect(rect)
-                }
+            for segment in 0..<lit {
+                litPath.addRect(layout.rect(band: band, segment: segment))
             }
-            context.fill(
-                unlitPath,
-                with: .color(VisualizerPalette.color(style: style, band: band, segment: 0, lit: false))
-            )
             context.fill(
                 litPath,
                 with: .color(VisualizerPalette.color(style: style, band: band, segment: 0, lit: true))
@@ -151,20 +135,12 @@ enum VisualizerPainter {
     ) {
         for segment in 0..<layout.segmentCount {
             var litPath = Path()
-            var unlitPath = Path()
             for band in 0..<layout.bandCount {
                 let lit = VisualizerLayout.litCount(peak: peak(peaks, band), segments: layout.segmentCount)
-                let rect = layout.rect(band: band, segment: segment)
                 if segment < lit {
-                    litPath.addRect(rect)
-                } else {
-                    unlitPath.addRect(rect)
+                    litPath.addRect(layout.rect(band: band, segment: segment))
                 }
             }
-            context.fill(
-                unlitPath,
-                with: .color(VisualizerPalette.color(style: style, band: 0, segment: segment, lit: false))
-            )
             context.fill(
                 litPath,
                 with: .color(VisualizerPalette.color(style: style, band: 0, segment: segment, lit: true))

@@ -7,7 +7,7 @@ struct ContentView: View {
 
     var body: some View {
         ZStack(alignment: .top) {
-            TimelineView(.animation(minimumInterval: 1.0 / 120.0)) { timeline in
+            TimelineView(.animation(minimumInterval: DisplayClock.frameDuration)) { timeline in
                 let _ = engine.tickPeaks(at: timeline.date)
                 VisualizerView(peaks: engine.peaks.copy(), style: style)
                     .ignoresSafeArea()
