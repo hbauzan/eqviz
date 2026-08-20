@@ -4,6 +4,8 @@ All notable changes to eqviz are documented here.
 
 ## [Unreleased]
 
+- Capture default-input via `AVAudioEngine.inputNode` (TCC + route-change retap verified). DEBUG overlay only; no FFT yet.
+- Hidden titlebar + opaque black window (800×240, min 400×120); background drag via AppKit (macOS 14). Always-on-top still deferred.
 - Add mic TCC copy to the PoC Info.plist (`eqviz does not record or send audio.`); sandbox and audio-input entitlements still omitted.
 - Scaffold the macOS PoC app (`macos/`, XcodeGen, ad-hoc Debug build, window 800×240).
 - Add interactive `./setup.sh` as the admin menu (Python tooling now; macOS build/run gated until the Xcode project exists).

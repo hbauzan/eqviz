@@ -46,10 +46,10 @@ Build + run. Checklist visual:
 
 ## Definition of Done
 
-- [ ] `ContentView.swift` existe y es el root.
-- [ ] Ventana negra, hidden titlebar, drag.
-- [ ] Always-on-top solo si 01-D lo locked.
-- [ ] Build 0. `STATUS.md` 04 `[x]`.
+- [x] `ContentView.swift` existe y es el root.
+- [x] Ventana negra, hidden titlebar, drag.
+- [x] Always-on-top solo si 01-D lo locked.
+- [x] Build 0. `STATUS.md` 04 `[x]`.
 
 ## Fuera de alcance
 

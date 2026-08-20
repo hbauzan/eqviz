@@ -7,13 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E6605C218A29F49FD9FABE1 /* RingBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3665DDACD6517F5E96FF2DEA /* RingBuffer.swift */; };
+		237CAC8F691266C7605C4E06 /* InputNodeCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE653EA4B3F54DE1C27CB32 /* InputNodeCapture.swift */; };
+		295766757DA7A8AEDFBA3A94 /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E42C47DBEC1C72E083223E8 /* AudioEngine.swift */; };
+		7D9E1A357FA73A0A80D5F64A /* AudioCapturing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1058B902C34DEC5886CCBA3A /* AudioCapturing.swift */; };
+		8D1D052855193253D20F75AA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786D467F6F748E7FD4F5C890 /* ContentView.swift */; };
+		9F98F97D12EB3A218D0CECDC /* WindowConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8119BCC516359F2E69386A6 /* WindowConfigurator.swift */; };
 		B95D2A5921C44EE387155072 /* eqvizApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3AB042F8B4058A32DDE806 /* eqvizApp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1058B902C34DEC5886CCBA3A /* AudioCapturing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioCapturing.swift; sourceTree = "<group>"; };
+		3665DDACD6517F5E96FF2DEA /* RingBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingBuffer.swift; sourceTree = "<group>"; };
 		457DE4A0F4E5CFBFCF23A430 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5FE653EA4B3F54DE1C27CB32 /* InputNodeCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputNodeCapture.swift; sourceTree = "<group>"; };
 		6E3AB042F8B4058A32DDE806 /* eqvizApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = eqvizApp.swift; sourceTree = "<group>"; };
+		6E42C47DBEC1C72E083223E8 /* AudioEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioEngine.swift; sourceTree = "<group>"; };
+		786D467F6F748E7FD4F5C890 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B5D81E359DEC9E4D3775CAC9 /* eqviz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eqviz.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8119BCC516359F2E69386A6 /* WindowConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowConfigurator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -28,8 +40,11 @@
 		8CE7A0628DF372ACAEBC61E4 /* eqviz */ = {
 			isa = PBXGroup;
 			children = (
+				786D467F6F748E7FD4F5C890 /* ContentView.swift */,
 				6E3AB042F8B4058A32DDE806 /* eqvizApp.swift */,
 				457DE4A0F4E5CFBFCF23A430 /* Info.plist */,
+				D8119BCC516359F2E69386A6 /* WindowConfigurator.swift */,
+				BC6DE915097D0A293DF100CB /* Audio */,
 			);
 			path = eqviz;
 			sourceTree = "<group>";
@@ -40,6 +55,17 @@
 				8CE7A0628DF372ACAEBC61E4 /* eqviz */,
 				306D5603F313F92041230AD5 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		BC6DE915097D0A293DF100CB /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				1058B902C34DEC5886CCBA3A /* AudioCapturing.swift */,
+				6E42C47DBEC1C72E083223E8 /* AudioEngine.swift */,
+				5FE653EA4B3F54DE1C27CB32 /* InputNodeCapture.swift */,
+				3665DDACD6517F5E96FF2DEA /* RingBuffer.swift */,
+			);
+			path = Audio;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -97,6 +123,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D9E1A357FA73A0A80D5F64A /* AudioCapturing.swift in Sources */,
+				295766757DA7A8AEDFBA3A94 /* AudioEngine.swift in Sources */,
+				8D1D052855193253D20F75AA /* ContentView.swift in Sources */,
+				237CAC8F691266C7605C4E06 /* InputNodeCapture.swift in Sources */,
+				1E6605C218A29F49FD9FABE1 /* RingBuffer.swift in Sources */,
+				9F98F97D12EB3A218D0CECDC /* WindowConfigurator.swift in Sources */,
 				B95D2A5921C44EE387155072 /* eqvizApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
