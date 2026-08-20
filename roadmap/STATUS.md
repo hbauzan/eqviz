@@ -9,7 +9,7 @@ Marcá `- [x]` solo cuando el Definition of Done del prompt se cumplió **y** se
 - [x] [05-audio-engine.md](./05-audio-engine.md) — AVAudioEngine start/stop + tap
 - [x] [06-fft-bands.md](./06-fft-bands.md) — vDSP FFT + 32 bandas log
 - [x] [07-decay-gravity.md](./07-decay-gravity.md) — peak decay por frame de display
-- [ ] [08-visualizer-view.md](./08-visualizer-view.md) — Canvas segmentos 120Hz
+- [x] [08-visualizer-view.md](./08-visualizer-view.md) — Canvas segmentos 120Hz
 - [ ] [09-visualizer-styles.md](./09-visualizer-styles.md) — 5 estilos
 - [ ] [10-content-view.md](./10-content-view.md) — hover chrome + selector
 - [ ] [11-setup-sh.md](./11-setup-sh.md) — menú admin cableado a xcodebuild
