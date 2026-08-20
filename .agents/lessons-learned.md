@@ -33,7 +33,7 @@ Registra invariantes de arquitectura y patrones descubiertos acá. Si existe, lo
 - **Host tools:** Human installs Homebrew/Xcode/XcodeGen. Agent never `brew install`. If a binary is missing: STOP and print the command.
 - **Capture v1:** macOS default input via `AVAudioEngine.inputNode`. Follow device changes (reinstall tap). No device picker.
 - **Capture v2:** system audio (ScreenCaptureKit) only if the user later says v1 does not meet expectations. Do not add SCK or BlackHole now.
-- **Window size:** 800×240 (PoC start). Always-on-top and close-vs-hide still open → STOP at 04/10.
+- **Window size:** 800×240 (PoC start). Always-on-top and close-vs-hide still open → STOP at 10 (04 shipped without floating / close policy).
 - **TCC mic string (verbatim):** `eqviz does not record or send audio.` Do not expand the copy.
 - **XcodeGen:** human-installed 2.46.x at `/opt/homebrew/bin/xcodegen`. Agent never brew-installs it.
 - **CLI build:** `xcodebuild` may fail with IDESimulatorFoundation plugin errors until `xcodebuild -runFirstLaunch` (Xcode system content, not Homebrew). Do not `brew install` Xcode. If it needs sudo/GUI, STOP and ask the human.
@@ -42,6 +42,9 @@ Registra invariantes de arquitectura y patrones descubiertos acá. Si existe, lo
 - **TCC source of truth (03):** `NSMicrophoneUsageDescription` lives only in `macos/eqviz/Info.plist`. Do not also set `INFOPLIST_KEY_NSMicrophoneUsageDescription` in `project.yml` (duplicate keys).
 - **No entitlements file (03):** Debug build succeeded without `eqviz.entitlements`, without `com.apple.security.device.audio-input`, and without `com.apple.security.app-sandbox`. Xcode still injects Debug-only `com.apple.security.get-task-allow`. Add `audio-input` only if a later `xcodebuild`/TCC path fails without it.
 - **Inspecting the built plist:** `plutil -p …/eqviz.app/Contents/Info.plist` is reliable. `defaults read …/Contents/Info` can fail against a file path even when the key is present.
+- **Window chrome (04):** `.windowStyle(.hiddenTitleBar)` + opaque black `NSWindow` via `WindowConfigurator`. Drag uses `isMovableByWindowBackground` because `.windowBackgroundDragBehavior` is macOS 15+ and the PoC deploys to 14.0. Do not set `window.level` — always-on-top and close-vs-hide stay STOP until 10.
+- **Audio facade (05, runtime OK 2026-08-20):** TCC + default input + route-change retap verified by the human. DEBUG overlay: `running · signal` (human may type it with a hyphen). `@Observable` only for `isRunning` / `lastError` / `permissionDenied` / DEBUG `hasSignal`. Capturer, ring, and `eqviz.audio` queue are `@ObservationIgnored`. Mic via `AVAudioApplication.requestRecordPermission` before `engine.start()`. No `audio-input` entitlement was needed even after TCC succeeded. Do not publish PCM arrays to SwiftUI.
+- **Seam for 06:** tap thread copies into `RingBuffer` then `processQueue.async` (`eqviz.audio`). Run vDSP there, never in the tap. `RingBuffer` today is write + `readLatest` (peek). Hop must be 2048 with **no overlap** — add a consuming read or an accumulator; do not FFT every tap buffer. `AudioEngine` does not yet expose `spectrum` or `sampleRate`; 06 adds `SpectrumSnapshot` (lock, not `@Observable var bands`). `eqvizTests` does not exist yet — add the test target in `project.yml`.
 
 ## 2.3. Performance invariants (for when the visualizer exists)
 
