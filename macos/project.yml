@@ -48,6 +48,7 @@ targets:
     sources:
       - path: eqvizTests
       - path: eqviz/DSP
+      - path: eqviz/UI
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: dev.local.eqviz.tests
