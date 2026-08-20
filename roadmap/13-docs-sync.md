@@ -30,7 +30,7 @@ README debe decir: entrada de admin = `./setup.sh`. Quitar o relegar `uv run pyt
 
 ## Definition of Done
 
-- [ ] Un clon nuevo puede seguir el README y llegar a ⌘R / `setup.sh` run.
-- [ ] Glossary y lessons coinciden con 01 locked + código.
-- [ ] `STATUS.md` 13 `[x]`.
-- [ ] Handoff al usuario: cómo probar, **approval gate** (no push/merge).
+- [x] Un clon nuevo puede seguir el README y llegar a ⌘R / `setup.sh` run.
+- [x] Glossary y lessons coinciden con 01 locked + código.
+- [x] `STATUS.md` 13 `[x]`.
+- [x] Handoff al usuario: cómo probar. Entrega git pedida en la misma sesión.

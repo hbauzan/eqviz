@@ -22,7 +22,7 @@ Reglas:
 | # | Archivo | Qué entrega | Compila app? |
 | :---: | :--- | :--- | :---: |
 | 00 | [00-invariants.md](./00-invariants.md) | Contrato. No es una tarea. | — |
-| 01 | [01-decision-gate.md](./01-decision-gate.md) | Decisiones A/B locked (Swift + input default). C–F siguen STOP. | no |
+| 01 | [01-decision-gate.md](./01-decision-gate.md) | Decisiones A–E locked (Swift, input default, ventana normal, close=quit, semáforos nativos). | no |
 | 02 | [02-xcode-bootstrap.md](./02-xcode-bootstrap.md) | Proyecto macOS reproducible | sí (ventana vacía) |
 | 03 | [03-permissions.md](./03-permissions.md) | Info.plist + entitlements TCC | sí |
 | 04 | [04-app-window.md](./04-app-window.md) | Ventana negra, chrome mínimo | sí |
@@ -38,7 +38,7 @@ Reglas:
 
 ## Extra de producto (ya creado, no es un prompt de implementación)
 
-- `./setup.sh` — menú admin único (sync, tests, lint, build/run cuando existan, stop con confirmación).
+- `./setup.sh` — menú admin único (sync, tests, lint, build/run/stop con confirmación).
 - `.cursor/rules/no-assumptions.mdc` — la regla de no-asumir aplica a **toda** sesión, no solo al roadmap.
 
 ## Camino locked
@@ -46,4 +46,5 @@ Reglas:
 - App: Swift + SwiftUI. Tooling: `./setup.sh` + `uv`.
 - **PoC:** Bundle ID `dev.local.eqviz`, Personal Team (set in Xcode, not in git), Sandbox OFF.
 - Captura v1: input default de macOS (`AVAudioEngine`). Sistema = solo si v1 no alcanza.
-- Siguiente: [03-permissions.md](./03-permissions.md). Prompt listo: [PROMPT-03.md](./PROMPT-03.md).
+- Ventana: normal, no always-on-top; close termina; semáforos nativos.
+- `STATUS.md` 01–13 `[x]`. Extra de producto: CPU Debug ~30% (goal 1–2%).
