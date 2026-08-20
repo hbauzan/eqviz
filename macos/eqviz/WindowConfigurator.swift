@@ -1,8 +1,7 @@
 import AppKit
 import SwiftUI
 
-/// Applies opaque black chrome to the hosting `NSWindow`.
-/// Does not raise `window.level` — always-on-top is deferred to step 10.
+/// Opaque black chrome. Native traffic lights stay visible; window level stays `.normal`.
 struct WindowConfigurator: NSViewRepresentable {
     func makeNSView(context: Context) -> NSView {
         WindowBackingView()
@@ -25,5 +24,8 @@ private final class WindowBackingView: NSView {
         window.isOpaque = true
         // macOS 14 substitute for SwiftUI `.windowBackgroundDragBehavior` (macOS 15+).
         window.isMovableByWindowBackground = true
+        window.standardWindowButton(.closeButton)?.isHidden = false
+        window.standardWindowButton(.miniaturizeButton)?.isHidden = false
+        window.standardWindowButton(.zoomButton)?.isHidden = false
     }
 }

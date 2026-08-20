@@ -41,7 +41,7 @@ seguida de la decisión concreta (qué se autoriza). Sin esa frase, una preferen
 - **Tooling de desarrollo:** `./setup.sh` (y `uv` para lint/tests/hooks del repo). Tests, build, run y cualquier chore repetible van por un ítem del menú (o su subcomando). No pegar `xcodebuild`/`pytest` crudos al humano; si aparece un test o tarea nueva, cableala al menú en el mismo cambio.
 - **Captura v1:** entrada por defecto de macOS (`AVAudioEngine.inputNode`). Seguir el device que la Mac tenga seleccionado; reinstalar tap en route change.
 - **Captura v2:** audio de sistema solo si el usuario dice que v1 no cumple expectativas. Hasta entonces, prohibido.
-- **Ventana PoC:** 800×240. Always-on-top y close-vs-hide siguen STOP.
+- **Ventana PoC:** 800×240, **normal** (no floating, no always-on-top, no `window.level`). Close **termina** el proceso. Semáforos **nativos**.
 - **TCC mic (verbatim):** `eqviz does not record or send audio.`
 - **Prolijo (después, no ahora):** Bundle ID de org real, Team pago si hay distribución, Sandbox on. No lo hagas en este PoC.
 
@@ -51,7 +51,7 @@ Detalle y fecha: `roadmap/01-decision-gate.md` § Decisiones locked.
 
 Pará y preguntá si falta cualquiera de:
 
-- comportamiento de ventana (flotante / always-on-top / close)
+- cambiar el lock de ventana (normal / no always-on-top / close=terminate / semáforos nativos) — ya está en `01-decision-gate.md`
 - borrar o reemplazar archivos que ya existen y no son el target del prompt
 - host tools faltantes (no instalarlas vos: pedile al humano el comando)
 - cualquier API de captura que no sea default input
