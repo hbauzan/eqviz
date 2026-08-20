@@ -17,6 +17,7 @@
 		295766757DA7A8AEDFBA3A94 /* AudioEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E42C47DBEC1C72E083223E8 /* AudioEngine.swift */; };
 		2C07C59A81D7C358EA7D055D /* BandMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE434BDD57174F7C25A7CF6E /* BandMapper.swift */; };
 		30400AFB61EB282622F294F3 /* HoverChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD0070DF98052594C8E9FCA /* HoverChrome.swift */; };
+		39E7DE22209FCB7CA5C70B1A /* DisplayClockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4832922A2E316DB4329A6547 /* DisplayClockTests.swift */; };
 		6912BCB7CF785964C9153CBA /* FFTProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99BE1CF0EF23E20E32963CFE /* FFTProcessor.swift */; };
 		6B846BE04D170EF18C37E9EC /* HoverChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BD0070DF98052594C8E9FCA /* HoverChrome.swift */; };
 		6B94125B9ADD77A1D54F4AA5 /* VisualizerStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6132CD2417579B2DA86FC3D /* VisualizerStyle.swift */; };
@@ -25,9 +26,11 @@
 		83CED1800834A7821EC1E51F /* PeakDecayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DE5047B5D0D34DB6F733833 /* PeakDecayTests.swift */; };
 		8D1D052855193253D20F75AA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786D467F6F748E7FD4F5C890 /* ContentView.swift */; };
 		9A57C68E20CBFF848147864F /* PaletteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65A252B0FFC19EF18C34B9E /* PaletteTests.swift */; };
+		9F5D6938F4AEEFE559FD01BA /* DisplayClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B122F0275B10E12A37AA112B /* DisplayClock.swift */; };
 		9F98F97D12EB3A218D0CECDC /* WindowConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8119BCC516359F2E69386A6 /* WindowConfigurator.swift */; };
 		A077F82052369488375B329A /* VisualizerStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6132CD2417579B2DA86FC3D /* VisualizerStyle.swift */; };
 		A25F3F62CA0D6BADB37D5E43 /* PeakDecay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DA128FE2AD6D0DD159F3414 /* PeakDecay.swift */; };
+		B1FF7702B754D1D1E50BD026 /* DisplayClock.swift in Sources */ = {isa = PBXBuildFile; fileRef = B122F0275B10E12A37AA112B /* DisplayClock.swift */; };
 		B95D2A5921C44EE387155072 /* eqvizApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3AB042F8B4058A32DDE806 /* eqvizApp.swift */; };
 		BD546B017D412FF8377AC6A3 /* VisualizerPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D3863BB6586EAF7DAF885B /* VisualizerPalette.swift */; };
 		C9A4226CA595D5CAA756DCF9 /* VisualizerPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17D3863BB6586EAF7DAF885B /* VisualizerPalette.swift */; };
@@ -43,6 +46,7 @@
 		2AF5BB419A66EF5CCE9A2D64 /* VisualizerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizerView.swift; sourceTree = "<group>"; };
 		3665DDACD6517F5E96FF2DEA /* RingBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingBuffer.swift; sourceTree = "<group>"; };
 		457DE4A0F4E5CFBFCF23A430 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		4832922A2E316DB4329A6547 /* DisplayClockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayClockTests.swift; sourceTree = "<group>"; };
 		4DE5047B5D0D34DB6F733833 /* PeakDecayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeakDecayTests.swift; sourceTree = "<group>"; };
 		553699FB74833C954C0DA57B /* DSPTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DSPTests.swift; sourceTree = "<group>"; };
 		5DAE284C54E507E98D15E4E5 /* VisualizerLayoutTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualizerLayoutTests.swift; sourceTree = "<group>"; };
@@ -53,6 +57,7 @@
 		786D467F6F748E7FD4F5C890 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		99BE1CF0EF23E20E32963CFE /* FFTProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFTProcessor.swift; sourceTree = "<group>"; };
 		A65A252B0FFC19EF18C34B9E /* PaletteTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaletteTests.swift; sourceTree = "<group>"; };
+		B122F0275B10E12A37AA112B /* DisplayClock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayClock.swift; sourceTree = "<group>"; };
 		B5D81E359DEC9E4D3775CAC9 /* eqviz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = eqviz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8119BCC516359F2E69386A6 /* WindowConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowConfigurator.swift; sourceTree = "<group>"; };
 		E48480B6A985C615BA6577ED /* eqvizTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = eqvizTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				EE434BDD57174F7C25A7CF6E /* BandMapper.swift */,
+				B122F0275B10E12A37AA112B /* DisplayClock.swift */,
 				99BE1CF0EF23E20E32963CFE /* FFTProcessor.swift */,
 				EA14F1D65CD9EDD0FC59FE2E /* Normalizer.swift */,
 				6DA128FE2AD6D0DD159F3414 /* PeakDecay.swift */,
@@ -130,6 +136,7 @@
 		F44E3DBD32E8D24C80A16898 /* eqvizTests */ = {
 			isa = PBXGroup;
 			children = (
+				4832922A2E316DB4329A6547 /* DisplayClockTests.swift */,
 				553699FB74833C954C0DA57B /* DSPTests.swift */,
 				A65A252B0FFC19EF18C34B9E /* PaletteTests.swift */,
 				4DE5047B5D0D34DB6F733833 /* PeakDecayTests.swift */,
@@ -213,6 +220,8 @@
 			files = (
 				1C4A48CCBB28D560EA45F797 /* BandMapper.swift in Sources */,
 				FB7188C3092DB4064C382170 /* DSPTests.swift in Sources */,
+				9F5D6938F4AEEFE559FD01BA /* DisplayClock.swift in Sources */,
+				39E7DE22209FCB7CA5C70B1A /* DisplayClockTests.swift in Sources */,
 				21079FCEC8FD073F3A6A4B9F /* FFTProcessor.swift in Sources */,
 				6B846BE04D170EF18C37E9EC /* HoverChrome.swift in Sources */,
 				0C890D9FFA0AF95D26D5861B /* Normalizer.swift in Sources */,
@@ -234,6 +243,7 @@
 				295766757DA7A8AEDFBA3A94 /* AudioEngine.swift in Sources */,
 				2C07C59A81D7C358EA7D055D /* BandMapper.swift in Sources */,
 				8D1D052855193253D20F75AA /* ContentView.swift in Sources */,
+				B1FF7702B754D1D1E50BD026 /* DisplayClock.swift in Sources */,
 				6912BCB7CF785964C9153CBA /* FFTProcessor.swift in Sources */,
 				30400AFB61EB282622F294F3 /* HoverChrome.swift in Sources */,
 				237CAC8F691266C7605C4E06 /* InputNodeCapture.swift in Sources */,

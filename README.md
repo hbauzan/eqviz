@@ -6,9 +6,9 @@ v1 is a Swift + SwiftUI PoC: 32×16 segmented bars, five palettes, default-input
 
 ## Status
 
-`0.0.1` PoC on Apple Silicon. Bundle ID `dev.local.eqviz`, Personal Team, sandbox off. Roadmap 01–13 is in [`roadmap/STATUS.md`](roadmap/STATUS.md).
+`0.0.1` PoC on Apple Silicon. Bundle ID `dev.local.eqviz`, Personal Team, sandbox off. Roadmap in [`roadmap/STATUS.md`](roadmap/STATUS.md) (v1 01–13 `[x]`; CPU follow-up 14 `[x]`, 15–17 open).
 
-Verified 2026-08-20 on Darwin arm64: live bars, decay, five styles, hover picker, native close (quits) / minimize, resize. Debug CPU was ~30% in Activity Monitor — still above the 1–2% goal; see CHANGELOG.
+Verified 2026-08-20 on Darwin arm64. Display is **60 Hz**, **lit cells only**. Debug CPU at 120 Hz was ~30% idle / ~40% while moving; re-measure after 14.
 
 ## Stack
 

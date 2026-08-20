@@ -63,14 +63,15 @@ Estos sí se usan sin preguntar, porque bajan la tasa de error. El usuario puede
 
 | Tema | Default | Por qué |
 | :--- | :--- | :--- |
-| Reloj de dibujo | `TimelineView` con `minimumInterval: 1/120` | Spec: 120Hz / ProMotion; cae a 60Hz en pantallas 60Hz |
+| Reloj de dibujo | `TimelineView` con `minimumInterval: DisplayClock.frameDuration` (60 Hz) | Humano 2026-08-20: 120 Hz era caro; gravity sigue con `dt` |
+| Unlit | No se pinta; el canvas negro es el apagado | Humano: no dibujar unlit |
 | Dibujo de barras | `Canvas` (un view) | N barras × M segmentos como `View`s explota la CPU |
 | FFT | Accelerate `vDSP`, size 2048, ventana Hann | Spec + tamaño clásico; setup creado una vez y reutilizado |
 | Bandas | 32, espaciado log 20 Hz–20 kHz | Graves→agudos perceptivo; vintage EQ |
 | Normalización | 0.0…1.0 con EMA del pico de espectro | Evita que todo salte a 1.0 en cada frame |
 | Decay | ataque instantáneo, caída por frame de display (no del tap de audio) | Gravedad de picos vintage |
 | Segmentos por barra | 16 bloques cuadrados | Look VFD/LED |
-| Concurrencia | picos/bandas **no** son `@Published`/`@Observable` de alta frecuencia; snapshot con lock leído desde `Canvas` | Goal < 1–2% CPU; ~30% medido en Debug 2026-08-20 |
+| Concurrencia | picos/bandas **no** son `@Published`/`@Observable` de alta frecuencia; snapshot con lock leído desde `Canvas` | Goal < 1–2% CPU; ~30% Debug / ~40% al mover (120 Hz, 2026-08-20). Seguí 15–17. |
 | Lenguaje Swift | modo Swift 5 en el target de la app | Swift 6 strict concurrency hace fallar a agentes |
 | macOS mínimo | 14.0 (Sonoma) | Spec Sonoma/Sequoia |
 | Layout Swift | `macos/eqviz/` + XcodeGen `project.yml` | `.xcodeproj` a mano es frágil |
