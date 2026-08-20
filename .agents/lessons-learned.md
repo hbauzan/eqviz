@@ -17,6 +17,35 @@ Registra invariantes de arquitectura y patrones descubiertos acá. Si existe, lo
 - **Real-time**: the audio → analysis → draw path is the latency budget. Analysis must not block the capture callback; drawing must not drop the audio thread.
 - **macOS-first** until ported: this working copy lives on Darwin; do not claim Windows/Linux support without testing.
 
+## 2.1. Ask / SECURITY OVERRIDE
+
+- If a product, stack, permission, signing, or audio-source choice is missing: **ask and wait**.
+- Do not treat “do what you think” as authorization.
+- The only unlock phrase is literal `SECURITY OVERRIDE` plus the concrete decision.
+- That phrase does not authorize committing secrets, capturing system audio in v1, or deleting the Python tooling bootstrap.
+
+## 2.2. Path locked (2026-08-20)
+
+- **App:** Swift + SwiftUI in `macos/eqviz/`. XcodeGen `project.yml`.
+- **Tooling:** `./setup.sh` + Python/`uv`. Do not implement the visualizer in Python. Do not delete the Python bootstrap.
+- **PoC identity:** Bundle ID `dev.local.eqviz`. Not a distribution identity; changing it later resets mic TCC.
+- **Signing:** Personal Team (free). Do not put `DEVELOPMENT_TEAM` in git. Human picks the team once in Xcode.
+- **Host tools:** Human installs Homebrew/Xcode/XcodeGen. Agent never `brew install`. If a binary is missing: STOP and print the command.
+- **Capture v1:** macOS default input via `AVAudioEngine.inputNode`. Follow device changes (reinstall tap). No device picker.
+- **Capture v2:** system audio (ScreenCaptureKit) only if the user later says v1 does not meet expectations. Do not add SCK or BlackHole now.
+- **Window size:** 800×240 (PoC start). Always-on-top and close-vs-hide still open → STOP at 04/10.
+- **TCC mic string (verbatim):** `eqviz does not record or send audio.` Do not expand the copy.
+- **XcodeGen:** human-installed 2.46.x at `/opt/homebrew/bin/xcodegen`. Agent never brew-installs it.
+- **CLI build:** `xcodebuild` may fail with IDESimulatorFoundation plugin errors until `xcodebuild -runFirstLaunch` (Xcode system content, not Homebrew). Do not `brew install` Xcode. If it needs sudo/GUI, STOP and ask the human.
+- **Ad-hoc signing:** `CODE_SIGN_IDENTITY: "-"` + `CODE_SIGNING_REQUIRED: NO` lets CLI Debug builds succeed without a Team ID in git. Human still selects Personal Team in Xcode for interactive runs.
+- **Sandbox:** OFF for this PoC. Turning it on is explicit later “prolijo” work.
+
+## 2.3. Performance invariants (for when the visualizer exists)
+
+- Draw segmented bars with one SwiftUI `Canvas`, not a View per block.
+- Band/peak arrays are a lock-protected snapshot read on the display clock (`TimelineView` 120Hz). They are not `@Published` at audio rate.
+- Peak decay uses real `dt` (amplitude per second), not a per-frame multiply that changes between 60Hz and 120Hz.
+
 ---
 
 ## 3. Protocolo de mantenimiento

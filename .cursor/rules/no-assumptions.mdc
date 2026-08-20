@@ -1,0 +1,14 @@
+---
+description: Ante la duda preguntar; no asumir salvo SECURITY OVERRIDE literal.
+alwaysApply: true
+---
+
+# No assumptions
+
+Ante cualquier duda de producto, stack, permisos, firma, fuente de audio, o destrucción de archivos: **preguntá y esperá**. No implementes la opción obvia.
+
+Única excepción: el usuario escribe literalmente `SECURITY OVERRIDE` y la decisión concreta. Frases vagas (“hace lo que te parezca”) no cuentan.
+
+Nunca `brew install` ni instaladores de sistema: host tools las pone el humano. Nunca escribas `DEVELOPMENT_TEAM` en el repo. Bundle ID del PoC: `dev.local.eqviz`. Sandbox OFF hasta un pedido “prolijo” explícito. v1: solo input default; no ScreenCaptureKit ni BlackHole. No borres el tooling Python. Nunca `pkill` sin confirmar.
+
+Camino locked: app Swift+SwiftUI; `./setup.sh` es el admin de desarrollo. Roadmap: un prompt numerado por sesión. Leé `roadmap/00-invariants.md` y `roadmap/STATUS.md` antes de código.
