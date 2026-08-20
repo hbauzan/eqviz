@@ -2,5 +2,9 @@
   "project": "eqviz",
   "version": "0.0.1",
   "state_schema": {},
-  "constraints": {}
+  "constraints": {
+    "band_count": 32,
+    "segment_count": 16,
+    "fft_size": 2048
+  }
 }

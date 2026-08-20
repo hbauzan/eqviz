@@ -70,7 +70,7 @@ Estos sí se usan sin preguntar, porque bajan la tasa de error. El usuario puede
 | Normalización | 0.0…1.0 con EMA del pico de espectro | Evita que todo salte a 1.0 en cada frame |
 | Decay | ataque instantáneo, caída por frame de display (no del tap de audio) | Gravedad de picos vintage |
 | Segmentos por barra | 16 bloques cuadrados | Look VFD/LED |
-| Concurrencia | picos/bandas **no** son `@Published`/`@Observable` de alta frecuencia; snapshot con lock leído desde `Canvas` | Target < 1–2% CPU |
+| Concurrencia | picos/bandas **no** son `@Published`/`@Observable` de alta frecuencia; snapshot con lock leído desde `Canvas` | Goal < 1–2% CPU; ~30% medido en Debug 2026-08-20 |
 | Lenguaje Swift | modo Swift 5 en el target de la app | Swift 6 strict concurrency hace fallar a agentes |
 | macOS mínimo | 14.0 (Sonoma) | Spec Sonoma/Sequoia |
 | Layout Swift | `macos/eqviz/` + XcodeGen `project.yml` | `.xcodeproj` a mano es frágil |

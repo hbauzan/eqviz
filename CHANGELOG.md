@@ -4,14 +4,12 @@ All notable changes to eqviz are documented here.
 
 ## [Unreleased]
 
-- Peak decay: instant attack, gravity 1.2 /s on the display clock (`TimelineView` 120 Hz). No Canvas yet.
-- vDSP real FFT (2048, Hann, hop 2048) → 32 log bands 0…1 behind `SpectrumSnapshot` (lock, not SwiftUI-published). `DSPTests` inject a sine; they do not use the mic.
-- Capture default-input via `AVAudioEngine.inputNode` (TCC + route-change retap verified).
-- Hidden titlebar + opaque black window (800×240, min 400×120); background drag via AppKit (macOS 14). Always-on-top still deferred.
-- Add mic TCC copy to the PoC Info.plist (`eqviz does not record or send audio.`); sandbox and audio-input entitlements still omitted.
-- Scaffold the macOS PoC app (`macos/`, XcodeGen, ad-hoc Debug build, window 800×240).
-- Add interactive `./setup.sh` as the admin menu (Python tooling now; macOS build/run gated until the Xcode project exists).
-- Add project rule: ask before assuming unless the user writes `SECURITY OVERRIDE`.
+- v1 PoC visualizer: 32×16 Canvas bars, five palettes, hover style picker, native traffic lights, close quits.
+- Capture: macOS default input (`AVAudioEngine.inputNode`), route-change retap. No ScreenCaptureKit.
+- DSP: vDSP FFT 2048 Hann, hop 2048, 32 log bands, display-clock peak gravity 1.2 /s.
+- Admin: `./setup.sh` build / test-mac / run / stop (stop asks y/N). DerivedData `macos/build/`.
+- Window: 800×240, hidden titlebar, normal level (not always-on-top).
+- **Verified 2026-08-20** on Darwin arm64 (live bars, 5 styles, hover, close/min, resize, denied-permission path). Debug CPU ~30% in Activity Monitor (goal 1–2%). Cheap draw-path cuts applied (TimelineView wraps only the Canvas; batched fills; opaque Canvas); re-measure before chasing Metal.
 
 ## [0.0.1] — 2026-08-20
 
