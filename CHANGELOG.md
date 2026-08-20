@@ -4,6 +4,8 @@ All notable changes to eqviz are documented here.
 
 ## [Unreleased]
 
+- License: CC BY 4.0 (use with attribution to https://github.com/hbauzan/eqviz).
+- README in Spanish; public-lab framing.
 - v1 PoC visualizer: 32×16 Canvas bars, five palettes, hover style picker, native traffic lights, close quits.
 - Capture: macOS default input (`AVAudioEngine.inputNode`), route-change retap. No ScreenCaptureKit.
 - DSP: vDSP FFT 2048 Hann, hop 2048, 32 log bands, display-clock peak gravity 1.2 /s.

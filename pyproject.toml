@@ -3,6 +3,7 @@ name = "eqviz"
 version = "0.0.1"
 description = "Ultralight real-time audio graphic visualizer"
 readme = "README.md"
+license = "CC-BY-4.0"
 requires-python = ">=3.12"
 dependencies = []
 
