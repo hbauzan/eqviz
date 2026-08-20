@@ -4,5 +4,7 @@
 <dict>
 	<key>CFBundleName</key>
 	<string>eqviz</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>eqviz does not record or send audio.</string>
 </dict>
 </plist>
