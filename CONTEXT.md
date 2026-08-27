@@ -44,7 +44,7 @@ The peak-fall of a band after the live energy drops: attack is instant; the peak
 
 ## Visualizer style
 
-One of six palettes for the same segmented bars: Retro Red, White Matrix, Rainbow Spectrum, Fire Gradient, Cyber Neon, and **90s Sony** (VFD cyan with overload tips, peak hold, smoked backdrop).
+One of six palettes for the same segmented bars: Retro Red, White Matrix, Rainbow Spectrum, Fire Gradient, Cyber Neon, and **90s Sony** (muted VFD cyan, half-square peak tip, peak hold, smoked backdrop).
 
 ## Segmented bar
 

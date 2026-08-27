@@ -24,11 +24,11 @@ enum VisualizerPalette {
         return unlitColor(style: style, lit: litRGB)
     }
 
-    /// Top segments lit as overload (amber/red) on the 90s Sony VFD palette.
-    static let sony90sOverloadSegmentStart = VisualizerGrid.segmentCount - 2
-
     /// Opaque smoked glass fill for 90s Sony (not window transparency).
     static let sony90sSmoked = VisualizerRGB(r: 0.04, g: 0.055, b: 0.05)
+
+    /// Muted VFD turquoise (same for body and peak tip — no overload red).
+    static let sony90sPhosphor = VisualizerRGB(r: 0.12, g: 0.55, b: 0.48)
 
     private static func litColor(style: VisualizerStyle, band: Int, segment: Int) -> VisualizerRGB {
         switch style {
@@ -44,7 +44,7 @@ enum VisualizerPalette {
         case .cyberNeon:
             return cyber(segment: segment)
         case .sony90s:
-            return sony90s(segment: segment)
+            return sony90sPhosphor
         }
     }
 
@@ -58,14 +58,6 @@ enum VisualizerPalette {
             let hsv = rgbToHsv(lit)
             return Self.hsv(h: hsv.h, s: hsv.s, v: unlitBrightness)
         }
-    }
-
-    /// Electric turquoise body; top two segments overload orange-red.
-    private static func sony90s(segment: Int) -> VisualizerRGB {
-        if segment >= sony90sOverloadSegmentStart {
-            return VisualizerRGB(r: 1.0, g: 0.32, b: 0.04)
-        }
-        return VisualizerRGB(r: 0.05, g: 0.95, b: 0.82)
     }
 
     private static func fire(segment: Int) -> VisualizerRGB {
