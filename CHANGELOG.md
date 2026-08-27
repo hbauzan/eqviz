@@ -4,6 +4,7 @@ All notable changes to eqviz are documented here.
 
 ## [Unreleased]
 
+- Style **90s Sony**: muted icy LED celeste, fast bar body (legacy gravity) + held half-square tip, smoked backdrop, fake glow.
 - README: screenshot, schematic layout, palette badges.
 - GitHub About: description + topics; `dev-protocol` git-workflow §3.6 for public repos.
 - License: CC BY 4.0 (use with attribution to https://github.com/hbauzan/eqviz).

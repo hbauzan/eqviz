@@ -50,6 +50,13 @@ struct VisualizerLayout: Equatable {
         return CGRect(x: x, y: y, width: cell, height: cell)
     }
 
+    /// Half-height tip sitting on the lower half of the peak cell (same band color).
+    func tipHalfRect(band: Int, segment: Int) -> CGRect {
+        let full = rect(band: band, segment: segment)
+        let height = full.height * 0.5
+        return CGRect(x: full.minX, y: full.maxY - height, width: full.width, height: height)
+    }
+
     static func litCount(peak: Float, segments: Int = VisualizerGrid.segmentCount) -> Int {
         let clamped: Float
         if peak.isNaN {
@@ -66,19 +73,40 @@ struct VisualizerLayout: Equatable {
 /// Segmented bars drawn in one Canvas. Host must tick peaks once per display frame; this view only copies and paints.
 struct VisualizerView: View {
     let peaks: [Float]
+    /// Held tip heights for 90s Sony; `nil` for styles without a separate tip track.
+    var tipPeaks: [Float]? = nil
     var style: VisualizerStyle = .retroRed
 
     var body: some View {
         Canvas(opaque: true) { context, size in
-            VisualizerPainter.paint(peaks: peaks, style: style, context: context, size: size)
+            VisualizerPainter.paint(
+                peaks: peaks,
+                tipPeaks: tipPeaks,
+                style: style,
+                context: context,
+                size: size
+            )
         }
     }
 }
 
-/// Lit cells only. Unlit stays the opaque black canvas (OLED off).
+/// Lit cells only. Unlit stays the opaque canvas (black, or smoked for 90s Sony).
 enum VisualizerPainter {
-    static func paint(peaks: [Float], style: VisualizerStyle, context: GraphicsContext, size: CGSize) {
-        context.fill(Path(CGRect(origin: .zero, size: size)), with: .color(.black))
+    static func paint(
+        peaks: [Float],
+        tipPeaks: [Float]? = nil,
+        style: VisualizerStyle,
+        context: GraphicsContext,
+        size: CGSize
+    ) {
+        let backdrop: Color
+        switch style {
+        case .sony90s:
+            backdrop = VisualizerPalette.sony90sSmoked.color()
+        default:
+            backdrop = .black
+        }
+        context.fill(Path(CGRect(origin: .zero, size: size)), with: .color(backdrop))
         let layout = VisualizerLayout.fitting(in: size)
         guard layout.cell > 0 else { return }
         switch style {
@@ -88,6 +116,67 @@ enum VisualizerPainter {
             paintByBand(peaks: peaks, style: style, layout: layout, context: context)
         case .fireGradient, .cyberNeon:
             paintBySegment(peaks: peaks, style: style, layout: layout, context: context)
+        case .sony90s:
+            paintSony90s(
+                bodyPeaks: peaks,
+                tipPeaks: tipPeaks ?? peaks,
+                layout: layout,
+                context: context
+            )
+        }
+    }
+
+    /// Fast body (legacy gravity) + held half-square tip; muted icy LED phosphor.
+    private static func paintSony90s(
+        bodyPeaks: [Float],
+        tipPeaks: [Float],
+        layout: VisualizerLayout,
+        context: GraphicsContext
+    ) {
+        let color = VisualizerPalette.color(style: .sony90s, band: 0, segment: 0, lit: true)
+        let glowPad = max(1.0, layout.cell * 0.12)
+        var bodyGlow = Path()
+        var bodyLit = Path()
+        var tipGlow = Path()
+        var tipLit = Path()
+
+        for band in 0..<layout.bandCount {
+            let bodyCount = VisualizerLayout.litCount(
+                peak: peak(bodyPeaks, band),
+                segments: layout.segmentCount
+            )
+            let tipCount = VisualizerLayout.litCount(
+                peak: peak(tipPeaks, band),
+                segments: layout.segmentCount
+            )
+            let bodyEnd: Int
+            if tipCount > 0, tipCount == bodyCount {
+                bodyEnd = max(0, bodyCount - 1)
+            } else {
+                bodyEnd = bodyCount
+            }
+            for segment in 0..<bodyEnd {
+                let rect = layout.rect(band: band, segment: segment)
+                bodyGlow.addRect(rect.insetBy(dx: -glowPad, dy: -glowPad))
+                bodyLit.addRect(rect)
+            }
+            guard tipCount > 0 else { continue }
+            let tip = layout.tipHalfRect(band: band, segment: tipCount - 1)
+            tipGlow.addRect(tip.insetBy(dx: -glowPad * 0.5, dy: -glowPad * 0.5))
+            tipLit.addRect(tip)
+        }
+
+        if !bodyGlow.isEmpty {
+            context.fill(bodyGlow, with: .color(color.opacity(0.22)))
+        }
+        if !bodyLit.isEmpty {
+            context.fill(bodyLit, with: .color(color))
+        }
+        if !tipGlow.isEmpty {
+            context.fill(tipGlow, with: .color(color.opacity(0.22)))
+        }
+        if !tipLit.isEmpty {
+            context.fill(tipLit, with: .color(color))
         }
     }
 

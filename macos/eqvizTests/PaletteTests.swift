@@ -1,14 +1,15 @@
 import XCTest
 
 final class PaletteTests: XCTestCase {
-    func testFiveLockedStyles() {
-        XCTAssertEqual(VisualizerStyle.allCases.count, 5)
+    func testSixLockedStyles() {
+        XCTAssertEqual(VisualizerStyle.allCases.count, 6)
         XCTAssertEqual(VisualizerStyle.allCases.map(\.title), [
             "Retro Red",
             "White Matrix",
             "Rainbow Spectrum",
             "Fire Gradient",
             "Cyber Neon",
+            "90s Sony",
         ])
     }
 
@@ -73,5 +74,27 @@ final class PaletteTests: XCTestCase {
             XCTAssertEqual(a.g, b.g, accuracy: 1e-6)
             XCTAssertEqual(a.b, b.b, accuracy: 1e-6)
         }
+    }
+
+    func testSony90sMutedUniformPhosphor() {
+        let body = VisualizerPalette.rgb(style: .sony90s, band: 0, segment: 0, lit: true)
+        let top = VisualizerPalette.rgb(style: .sony90s, band: 31, segment: 15, lit: true)
+        XCTAssertEqual(body.r, VisualizerPalette.sony90sPhosphor.r, accuracy: 1e-6)
+        XCTAssertEqual(body.g, VisualizerPalette.sony90sPhosphor.g, accuracy: 1e-6)
+        XCTAssertEqual(body.b, VisualizerPalette.sony90sPhosphor.b, accuracy: 1e-6)
+        XCTAssertEqual(body.r, top.r, accuracy: 1e-6)
+        XCTAssertEqual(body.g, top.g, accuracy: 1e-6)
+        XCTAssertEqual(body.b, top.b, accuracy: 1e-6)
+        XCTAssertGreaterThan(body.b, body.r)
+        XCTAssertGreaterThan(body.g, body.r)
+        XCTAssertLessThan(body.b, 0.92)
+    }
+
+    func testSony90sUsesHeldTipOnly() {
+        XCTAssertTrue(VisualizerStyle.sony90s.usesHeldPeakTip)
+        XCTAssertFalse(VisualizerStyle.retroRed.usesHeldPeakTip)
+        XCTAssertEqual(PeakDecay.sony90sHold, 0.5, accuracy: 1e-9)
+        XCTAssertEqual(PeakDecay.sony90sGravity, 0.5, accuracy: 1e-6)
+        XCTAssertEqual(PeakDecay.gravity, 1.2, accuracy: 1e-6)
     }
 }

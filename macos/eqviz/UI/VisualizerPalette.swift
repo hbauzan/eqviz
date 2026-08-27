@@ -24,6 +24,12 @@ enum VisualizerPalette {
         return unlitColor(style: style, lit: litRGB)
     }
 
+    /// Opaque smoked glass fill for 90s Sony (not window transparency).
+    static let sony90sSmoked = VisualizerRGB(r: 0.04, g: 0.055, b: 0.05)
+
+    /// Muted icy LED / off-white celeste (same for body and tip).
+    static let sony90sPhosphor = VisualizerRGB(r: 0.52, g: 0.70, b: 0.82)
+
     private static func litColor(style: VisualizerStyle, band: Int, segment: Int) -> VisualizerRGB {
         switch style {
         case .retroRed:
@@ -37,6 +43,8 @@ enum VisualizerPalette {
             return fire(segment: segment)
         case .cyberNeon:
             return cyber(segment: segment)
+        case .sony90s:
+            return sony90sPhosphor
         }
     }
 
@@ -46,7 +54,7 @@ enum VisualizerPalette {
             return VisualizerRGB(r: 0.12, g: 0.02, b: 0.02)
         case .whiteMatrix:
             return VisualizerRGB(r: 0, g: 0, b: 0)
-        case .rainbowSpectrum, .fireGradient, .cyberNeon:
+        case .rainbowSpectrum, .fireGradient, .cyberNeon, .sony90s:
             let hsv = rgbToHsv(lit)
             return Self.hsv(h: hsv.h, s: hsv.s, v: unlitBrightness)
         }

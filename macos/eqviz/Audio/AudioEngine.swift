@@ -33,12 +33,18 @@ final class AudioEngine {
 
     @ObservationIgnored let spectrum = SpectrumSnapshot()
     @ObservationIgnored let peaks = SpectrumSnapshot()
+    /// Held tip for 90s Sony only; same bands, slower fall + hold.
+    @ObservationIgnored let tipPeaks = SpectrumSnapshot()
     @ObservationIgnored private let capturer: InputNodeCapture
     @ObservationIgnored private let ring: RingBuffer
     @ObservationIgnored private let processQueue = DispatchQueue(label: "eqviz.audio", qos: .userInitiated)
     @ObservationIgnored private let fft = FFTProcessor()
     @ObservationIgnored private let normalizer = Normalizer()
     @ObservationIgnored private let peakDecay = PeakDecay()
+    @ObservationIgnored private let tipDecay = PeakDecay(
+        gravity: PeakDecay.sony90sGravity,
+        holdDuration: PeakDecay.sony90sHold
+    )
     @ObservationIgnored private var mapper: BandMapper?
     @ObservationIgnored private var pendingSignal = false
     @ObservationIgnored private var lastSignalPublish: CFAbsoluteTime = 0
@@ -91,9 +97,9 @@ final class AudioEngine {
 #endif
     }
 
-    /// Display-clock tick. Gravity uses real `dt`; do not call from the audio queue.
+    /// Display-clock tick. Bar body always uses legacy gravity; tip hold is style-specific.
     @MainActor
-    func tickPeaks(at date: Date) {
+    func tickPeaks(at date: Date, style: VisualizerStyle = .retroRed) {
         let dt: CFTimeInterval
         if let last = lastPeakTick {
             dt = max(0, date.timeIntervalSince(last))
@@ -101,7 +107,11 @@ final class AudioEngine {
             dt = DisplayClock.frameDuration
         }
         lastPeakTick = date
-        peaks.write(peakDecay.tick(bands: spectrum.copy(), dt: dt))
+        let bands = spectrum.copy()
+        peaks.write(peakDecay.tick(bands: bands, dt: dt))
+        if style.usesHeldPeakTip {
+            tipPeaks.write(tipDecay.tick(bands: bands, dt: dt))
+        }
     }
 
     private func handleSamples(_ samples: UnsafeBufferPointer<Float>, sampleRate: Double) {

@@ -8,8 +8,12 @@ struct ContentView: View {
     var body: some View {
         ZStack(alignment: .top) {
             TimelineView(.animation(minimumInterval: DisplayClock.frameDuration)) { timeline in
-                let _ = engine.tickPeaks(at: timeline.date)
-                VisualizerView(peaks: engine.peaks.copy(), style: style)
+                let _ = engine.tickPeaks(at: timeline.date, style: style)
+                VisualizerView(
+                    peaks: engine.peaks.copy(),
+                    tipPeaks: style.usesHeldPeakTip ? engine.tipPeaks.copy() : nil,
+                    style: style
+                )
                     .ignoresSafeArea()
             }
             HoverChrome(style: $style, hovering: hovering)
