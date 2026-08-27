@@ -62,4 +62,38 @@ final class PeakDecayTests: XCTestCase {
         peaks = decay.tick(bands: bands, dt: 1.0 / 120.0)
         XCTAssertEqual(peaks[0], 0.9, accuracy: 1e-6)
     }
+
+    func testHoldFreezesPeakThenFalls() {
+        let decay = PeakDecay(
+            gravity: PeakDecay.sony90sGravity,
+            holdDuration: PeakDecay.sony90sHold
+        )
+        var hot = [Float](repeating: 0, count: PeakDecay.bandCount)
+        hot[0] = 1
+        let zeros = [Float](repeating: 0, count: PeakDecay.bandCount)
+        let dt = 1.0 / 60.0
+
+        var peaks = decay.tick(bands: hot, dt: 0)
+        XCTAssertEqual(peaks[0], 1, accuracy: 1e-6)
+
+        // Drain the full hold in one display tick — peak stays frozen.
+        peaks = decay.tick(bands: zeros, dt: PeakDecay.sony90sHold)
+        XCTAssertEqual(peaks[0], 1, accuracy: 1e-6)
+
+        // Next tick falls with sony gravity.
+        peaks = decay.tick(bands: zeros, dt: dt)
+        XCTAssertLessThan(peaks[0], 1)
+        XCTAssertEqual(peaks[0], 1.0 - PeakDecay.sony90sGravity * Float(dt), accuracy: 1e-4)
+    }
+
+    func testZeroHoldMatchesLegacyImmediateFall() {
+        let decay = PeakDecay(gravity: PeakDecay.gravity, holdDuration: 0)
+        var hot = [Float](repeating: 0, count: PeakDecay.bandCount)
+        hot[0] = 1
+        let zeros = [Float](repeating: 0, count: PeakDecay.bandCount)
+        let dt = 1.0 / 60.0
+        _ = decay.tick(bands: hot, dt: 0)
+        let peaks = decay.tick(bands: zeros, dt: dt)
+        XCTAssertEqual(peaks[0], 1.0 - PeakDecay.gravity * Float(dt), accuracy: 1e-4)
+    }
 }

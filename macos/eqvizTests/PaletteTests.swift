@@ -1,14 +1,15 @@
 import XCTest
 
 final class PaletteTests: XCTestCase {
-    func testFiveLockedStyles() {
-        XCTAssertEqual(VisualizerStyle.allCases.count, 5)
+    func testSixLockedStyles() {
+        XCTAssertEqual(VisualizerStyle.allCases.count, 6)
         XCTAssertEqual(VisualizerStyle.allCases.map(\.title), [
             "Retro Red",
             "White Matrix",
             "Rainbow Spectrum",
             "Fire Gradient",
             "Cyber Neon",
+            "90s Sony",
         ])
     }
 
@@ -73,5 +74,30 @@ final class PaletteTests: XCTestCase {
             XCTAssertEqual(a.g, b.g, accuracy: 1e-6)
             XCTAssertEqual(a.b, b.b, accuracy: 1e-6)
         }
+    }
+
+    func testSony90sTurquoiseBodyAndOverloadTop() {
+        let body = VisualizerPalette.rgb(style: .sony90s, band: 0, segment: 0, lit: true)
+        let mid = VisualizerPalette.rgb(style: .sony90s, band: 0, segment: 13, lit: true)
+        let overload = VisualizerPalette.rgb(style: .sony90s, band: 0, segment: 14, lit: true)
+        let top = VisualizerPalette.rgb(style: .sony90s, band: 31, segment: 15, lit: true)
+
+        XCTAssertGreaterThan(body.g, body.r)
+        XCTAssertGreaterThan(body.b, body.r)
+        XCTAssertEqual(body.r, mid.r, accuracy: 1e-6)
+        XCTAssertEqual(body.g, mid.g, accuracy: 1e-6)
+        XCTAssertEqual(body.b, mid.b, accuracy: 1e-6)
+
+        XCTAssertGreaterThan(overload.r, overload.g)
+        XCTAssertEqual(overload.r, top.r, accuracy: 1e-6)
+        XCTAssertEqual(overload.g, top.g, accuracy: 1e-6)
+        XCTAssertEqual(overload.b, top.b, accuracy: 1e-6)
+    }
+
+    func testSony90sPeakProfile() {
+        XCTAssertEqual(VisualizerStyle.sony90s.peakHoldDuration, PeakDecay.sony90sHold, accuracy: 1e-9)
+        XCTAssertEqual(VisualizerStyle.sony90s.peakGravity, PeakDecay.sony90sGravity, accuracy: 1e-6)
+        XCTAssertEqual(VisualizerStyle.retroRed.peakHoldDuration, 0, accuracy: 1e-9)
+        XCTAssertEqual(VisualizerStyle.retroRed.peakGravity, PeakDecay.gravity, accuracy: 1e-6)
     }
 }
