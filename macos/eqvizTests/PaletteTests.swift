@@ -76,22 +76,17 @@ final class PaletteTests: XCTestCase {
         }
     }
 
-    func testSony90sTurquoiseBodyAndOverloadTop() {
+    func testSony90sMutedUniformPhosphor() {
         let body = VisualizerPalette.rgb(style: .sony90s, band: 0, segment: 0, lit: true)
-        let mid = VisualizerPalette.rgb(style: .sony90s, band: 0, segment: 13, lit: true)
-        let overload = VisualizerPalette.rgb(style: .sony90s, band: 0, segment: 14, lit: true)
         let top = VisualizerPalette.rgb(style: .sony90s, band: 31, segment: 15, lit: true)
-
+        XCTAssertEqual(body.r, VisualizerPalette.sony90sPhosphor.r, accuracy: 1e-6)
+        XCTAssertEqual(body.g, VisualizerPalette.sony90sPhosphor.g, accuracy: 1e-6)
+        XCTAssertEqual(body.b, VisualizerPalette.sony90sPhosphor.b, accuracy: 1e-6)
+        XCTAssertEqual(body.r, top.r, accuracy: 1e-6)
+        XCTAssertEqual(body.g, top.g, accuracy: 1e-6)
+        XCTAssertEqual(body.b, top.b, accuracy: 1e-6)
         XCTAssertGreaterThan(body.g, body.r)
-        XCTAssertGreaterThan(body.b, body.r)
-        XCTAssertEqual(body.r, mid.r, accuracy: 1e-6)
-        XCTAssertEqual(body.g, mid.g, accuracy: 1e-6)
-        XCTAssertEqual(body.b, mid.b, accuracy: 1e-6)
-
-        XCTAssertGreaterThan(overload.r, overload.g)
-        XCTAssertEqual(overload.r, top.r, accuracy: 1e-6)
-        XCTAssertEqual(overload.g, top.g, accuracy: 1e-6)
-        XCTAssertEqual(overload.b, top.b, accuracy: 1e-6)
+        XCTAssertLessThan(body.g, 0.75)
     }
 
     func testSony90sPeakProfile() {

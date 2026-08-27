@@ -51,4 +51,14 @@ final class VisualizerLayoutTests: XCTestCase {
             }
         }
     }
+
+    func testTipHalfRectIsHalfHeightFlushToCellBottom() {
+        let layout = VisualizerLayout.fitting(in: CGSize(width: 800, height: 240))
+        let full = layout.rect(band: 3, segment: 7)
+        let tip = layout.tipHalfRect(band: 3, segment: 7)
+        XCTAssertEqual(tip.height, full.height * 0.5, accuracy: 1e-6)
+        XCTAssertEqual(tip.width, full.width, accuracy: 1e-6)
+        XCTAssertEqual(tip.maxY, full.maxY, accuracy: 1e-6)
+        XCTAssertEqual(tip.minX, full.minX, accuracy: 1e-6)
+    }
 }

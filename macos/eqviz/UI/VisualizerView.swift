@@ -50,6 +50,13 @@ struct VisualizerLayout: Equatable {
         return CGRect(x: x, y: y, width: cell, height: cell)
     }
 
+    /// Half-height tip sitting on the lower half of the peak cell (same band color).
+    func tipHalfRect(band: Int, segment: Int) -> CGRect {
+        let full = rect(band: band, segment: segment)
+        let height = full.height * 0.5
+        return CGRect(x: full.minX, y: full.maxY - height, width: full.width, height: height)
+    }
+
     static func litCount(peak: Float, segments: Int = VisualizerGrid.segmentCount) -> Int {
         let clamped: Float
         if peak.isNaN {
@@ -100,30 +107,44 @@ enum VisualizerPainter {
         }
     }
 
-    /// Segment colors + cheap fake glow (expanded dim rect behind each lit cell; no blur).
+    /// Muted phosphor + single half-square tip (same color); cheap fake glow, no overload red.
     private static func paintSony90s(
         peaks: [Float],
         layout: VisualizerLayout,
         context: GraphicsContext
     ) {
+        let color = VisualizerPalette.color(style: .sony90s, band: 0, segment: 0, lit: true)
         let glowPad = max(1.0, layout.cell * 0.12)
-        for segment in 0..<layout.segmentCount {
-            let color = VisualizerPalette.color(style: .sony90s, band: 0, segment: segment, lit: true)
-            var glowPath = Path()
-            var litPath = Path()
-            for band in 0..<layout.bandCount {
-                let lit = VisualizerLayout.litCount(peak: peak(peaks, band), segments: layout.segmentCount)
-                guard segment < lit else { continue }
+        var bodyGlow = Path()
+        var bodyLit = Path()
+        var tipGlow = Path()
+        var tipLit = Path()
+
+        for band in 0..<layout.bandCount {
+            let lit = VisualizerLayout.litCount(peak: peak(peaks, band), segments: layout.segmentCount)
+            guard lit > 0 else { continue }
+            let tipSegment = lit - 1
+            for segment in 0..<tipSegment {
                 let rect = layout.rect(band: band, segment: segment)
-                glowPath.addRect(rect.insetBy(dx: -glowPad, dy: -glowPad))
-                litPath.addRect(rect)
+                bodyGlow.addRect(rect.insetBy(dx: -glowPad, dy: -glowPad))
+                bodyLit.addRect(rect)
             }
-            if !glowPath.isEmpty {
-                context.fill(glowPath, with: .color(color.opacity(0.28)))
-            }
-            if !litPath.isEmpty {
-                context.fill(litPath, with: .color(color))
-            }
+            let tip = layout.tipHalfRect(band: band, segment: tipSegment)
+            tipGlow.addRect(tip.insetBy(dx: -glowPad * 0.5, dy: -glowPad * 0.5))
+            tipLit.addRect(tip)
+        }
+
+        if !bodyGlow.isEmpty {
+            context.fill(bodyGlow, with: .color(color.opacity(0.22)))
+        }
+        if !bodyLit.isEmpty {
+            context.fill(bodyLit, with: .color(color))
+        }
+        if !tipGlow.isEmpty {
+            context.fill(tipGlow, with: .color(color.opacity(0.22)))
+        }
+        if !tipLit.isEmpty {
+            context.fill(tipLit, with: .color(color))
         }
     }
 
