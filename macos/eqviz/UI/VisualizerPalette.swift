@@ -27,8 +27,8 @@ enum VisualizerPalette {
     /// Opaque smoked glass fill for 90s Sony (not window transparency).
     static let sony90sSmoked = VisualizerRGB(r: 0.04, g: 0.055, b: 0.05)
 
-    /// Muted VFD turquoise (same for body and peak tip — no overload red).
-    static let sony90sPhosphor = VisualizerRGB(r: 0.12, g: 0.55, b: 0.48)
+    /// Muted icy LED / off-white celeste (same for body and tip).
+    static let sony90sPhosphor = VisualizerRGB(r: 0.52, g: 0.70, b: 0.82)
 
     private static func litColor(style: VisualizerStyle, band: Int, segment: Int) -> VisualizerRGB {
         switch style {

@@ -73,18 +73,32 @@ struct VisualizerLayout: Equatable {
 /// Segmented bars drawn in one Canvas. Host must tick peaks once per display frame; this view only copies and paints.
 struct VisualizerView: View {
     let peaks: [Float]
+    /// Held tip heights for 90s Sony; `nil` for styles without a separate tip track.
+    var tipPeaks: [Float]? = nil
     var style: VisualizerStyle = .retroRed
 
     var body: some View {
         Canvas(opaque: true) { context, size in
-            VisualizerPainter.paint(peaks: peaks, style: style, context: context, size: size)
+            VisualizerPainter.paint(
+                peaks: peaks,
+                tipPeaks: tipPeaks,
+                style: style,
+                context: context,
+                size: size
+            )
         }
     }
 }
 
 /// Lit cells only. Unlit stays the opaque canvas (black, or smoked for 90s Sony).
 enum VisualizerPainter {
-    static func paint(peaks: [Float], style: VisualizerStyle, context: GraphicsContext, size: CGSize) {
+    static func paint(
+        peaks: [Float],
+        tipPeaks: [Float]? = nil,
+        style: VisualizerStyle,
+        context: GraphicsContext,
+        size: CGSize
+    ) {
         let backdrop: Color
         switch style {
         case .sony90s:
@@ -103,13 +117,19 @@ enum VisualizerPainter {
         case .fireGradient, .cyberNeon:
             paintBySegment(peaks: peaks, style: style, layout: layout, context: context)
         case .sony90s:
-            paintSony90s(peaks: peaks, layout: layout, context: context)
+            paintSony90s(
+                bodyPeaks: peaks,
+                tipPeaks: tipPeaks ?? peaks,
+                layout: layout,
+                context: context
+            )
         }
     }
 
-    /// Muted phosphor + single half-square tip (same color); cheap fake glow, no overload red.
+    /// Fast body (legacy gravity) + held half-square tip; muted icy LED phosphor.
     private static func paintSony90s(
-        peaks: [Float],
+        bodyPeaks: [Float],
+        tipPeaks: [Float],
         layout: VisualizerLayout,
         context: GraphicsContext
     ) {
@@ -121,15 +141,27 @@ enum VisualizerPainter {
         var tipLit = Path()
 
         for band in 0..<layout.bandCount {
-            let lit = VisualizerLayout.litCount(peak: peak(peaks, band), segments: layout.segmentCount)
-            guard lit > 0 else { continue }
-            let tipSegment = lit - 1
-            for segment in 0..<tipSegment {
+            let bodyCount = VisualizerLayout.litCount(
+                peak: peak(bodyPeaks, band),
+                segments: layout.segmentCount
+            )
+            let tipCount = VisualizerLayout.litCount(
+                peak: peak(tipPeaks, band),
+                segments: layout.segmentCount
+            )
+            let bodyEnd: Int
+            if tipCount > 0, tipCount == bodyCount {
+                bodyEnd = max(0, bodyCount - 1)
+            } else {
+                bodyEnd = bodyCount
+            }
+            for segment in 0..<bodyEnd {
                 let rect = layout.rect(band: band, segment: segment)
                 bodyGlow.addRect(rect.insetBy(dx: -glowPad, dy: -glowPad))
                 bodyLit.addRect(rect)
             }
-            let tip = layout.tipHalfRect(band: band, segment: tipSegment)
+            guard tipCount > 0 else { continue }
+            let tip = layout.tipHalfRect(band: band, segment: tipCount - 1)
             tipGlow.addRect(tip.insetBy(dx: -glowPad * 0.5, dy: -glowPad * 0.5))
             tipLit.addRect(tip)
         }
