@@ -23,6 +23,7 @@
   <img src="https://img.shields.io/badge/Rainbow%20Spectrum-FF3D9A?style=flat-square" alt="Rainbow Spectrum" />
   <img src="https://img.shields.io/badge/Fire%20Gradient-FFEB0D?style=flat-square" alt="Fire Gradient" />
   <img src="https://img.shields.io/badge/Cyber%20Neon-00FFFF?style=flat-square" alt="Cyber Neon" />
+  <img src="https://img.shields.io/badge/90s%20Sony-0FF2D1?style=flat-square&labelColor=0A0E0D" alt="90s Sony" />
 </p>
 
 ---
@@ -48,7 +49,7 @@ Estaba (estoy) escuchando **Cassettes**, la playlist con la música de los casse
 | Grilla | 32 × 16 segmentos |
 | Reloj | 60 Hz, solo celdas prendidas |
 | Captura | entrada default de la Mac |
-| Paletas | 5, hover para cambiar |
+| Paletas | 6, hover para cambiar |
 | Stack | Swift + SwiftUI · Python/`uv` solo tooling |
 
 > [!NOTE]

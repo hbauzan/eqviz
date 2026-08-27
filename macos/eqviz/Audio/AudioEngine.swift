@@ -92,8 +92,10 @@ final class AudioEngine {
     }
 
     /// Display-clock tick. Gravity uses real `dt`; do not call from the audio queue.
+    /// `style` selects hold/gravity (90s Sony only); other styles keep legacy immediate fall.
     @MainActor
-    func tickPeaks(at date: Date) {
+    func tickPeaks(at date: Date, style: VisualizerStyle = .retroRed) {
+        peakDecay.configure(gravity: style.peakGravity, holdDuration: style.peakHoldDuration)
         let dt: CFTimeInterval
         if let last = lastPeakTick {
             dt = max(0, date.timeIntervalSince(last))

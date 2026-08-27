@@ -75,10 +75,17 @@ struct VisualizerView: View {
     }
 }
 
-/// Lit cells only. Unlit stays the opaque black canvas (OLED off).
+/// Lit cells only. Unlit stays the opaque canvas (black, or smoked for 90s Sony).
 enum VisualizerPainter {
     static func paint(peaks: [Float], style: VisualizerStyle, context: GraphicsContext, size: CGSize) {
-        context.fill(Path(CGRect(origin: .zero, size: size)), with: .color(.black))
+        let backdrop: Color
+        switch style {
+        case .sony90s:
+            backdrop = VisualizerPalette.sony90sSmoked.color()
+        default:
+            backdrop = .black
+        }
+        context.fill(Path(CGRect(origin: .zero, size: size)), with: .color(backdrop))
         let layout = VisualizerLayout.fitting(in: size)
         guard layout.cell > 0 else { return }
         switch style {
@@ -88,6 +95,35 @@ enum VisualizerPainter {
             paintByBand(peaks: peaks, style: style, layout: layout, context: context)
         case .fireGradient, .cyberNeon:
             paintBySegment(peaks: peaks, style: style, layout: layout, context: context)
+        case .sony90s:
+            paintSony90s(peaks: peaks, layout: layout, context: context)
+        }
+    }
+
+    /// Segment colors + cheap fake glow (expanded dim rect behind each lit cell; no blur).
+    private static func paintSony90s(
+        peaks: [Float],
+        layout: VisualizerLayout,
+        context: GraphicsContext
+    ) {
+        let glowPad = max(1.0, layout.cell * 0.12)
+        for segment in 0..<layout.segmentCount {
+            let color = VisualizerPalette.color(style: .sony90s, band: 0, segment: segment, lit: true)
+            var glowPath = Path()
+            var litPath = Path()
+            for band in 0..<layout.bandCount {
+                let lit = VisualizerLayout.litCount(peak: peak(peaks, band), segments: layout.segmentCount)
+                guard segment < lit else { continue }
+                let rect = layout.rect(band: band, segment: segment)
+                glowPath.addRect(rect.insetBy(dx: -glowPad, dy: -glowPad))
+                litPath.addRect(rect)
+            }
+            if !glowPath.isEmpty {
+                context.fill(glowPath, with: .color(color.opacity(0.28)))
+            }
+            if !litPath.isEmpty {
+                context.fill(litPath, with: .color(color))
+            }
         }
     }
 
