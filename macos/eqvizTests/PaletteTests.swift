@@ -85,14 +85,16 @@ final class PaletteTests: XCTestCase {
         XCTAssertEqual(body.r, top.r, accuracy: 1e-6)
         XCTAssertEqual(body.g, top.g, accuracy: 1e-6)
         XCTAssertEqual(body.b, top.b, accuracy: 1e-6)
+        XCTAssertGreaterThan(body.b, body.r)
         XCTAssertGreaterThan(body.g, body.r)
-        XCTAssertLessThan(body.g, 0.75)
+        XCTAssertLessThan(body.b, 0.92)
     }
 
-    func testSony90sPeakProfile() {
-        XCTAssertEqual(VisualizerStyle.sony90s.peakHoldDuration, PeakDecay.sony90sHold, accuracy: 1e-9)
-        XCTAssertEqual(VisualizerStyle.sony90s.peakGravity, PeakDecay.sony90sGravity, accuracy: 1e-6)
-        XCTAssertEqual(VisualizerStyle.retroRed.peakHoldDuration, 0, accuracy: 1e-9)
-        XCTAssertEqual(VisualizerStyle.retroRed.peakGravity, PeakDecay.gravity, accuracy: 1e-6)
+    func testSony90sUsesHeldTipOnly() {
+        XCTAssertTrue(VisualizerStyle.sony90s.usesHeldPeakTip)
+        XCTAssertFalse(VisualizerStyle.retroRed.usesHeldPeakTip)
+        XCTAssertEqual(PeakDecay.sony90sHold, 0.5, accuracy: 1e-9)
+        XCTAssertEqual(PeakDecay.sony90sGravity, 0.5, accuracy: 1e-6)
+        XCTAssertEqual(PeakDecay.gravity, 1.2, accuracy: 1e-6)
     }
 }

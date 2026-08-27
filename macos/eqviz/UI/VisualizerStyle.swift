@@ -22,18 +22,8 @@ enum VisualizerStyle: String, CaseIterable, Identifiable {
         }
     }
 
-    /// Display-clock peak profile. Only `sony90s` uses hold + slower gravity.
-    var peakGravity: Float {
-        switch self {
-        case .sony90s: return PeakDecay.sony90sGravity
-        default: return PeakDecay.gravity
-        }
-    }
-
-    var peakHoldDuration: CFTimeInterval {
-        switch self {
-        case .sony90s: return PeakDecay.sony90sHold
-        default: return 0
-        }
+    /// Half-square tip with hold; bar body always uses the shared legacy peak decay.
+    var usesHeldPeakTip: Bool {
+        self == .sony90s
     }
 }

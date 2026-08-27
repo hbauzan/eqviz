@@ -4,7 +4,7 @@ All notable changes to eqviz are documented here.
 
 ## [Unreleased]
 
-- Style **90s Sony**: muted VFD turquoise bars, single half-square peak tip (same color, no overload red), smoked opaque backdrop, cheap fake glow, 500 ms peak hold + slower gravity (style-only).
+- Style **90s Sony**: muted icy LED celeste, fast bar body (legacy gravity) + held half-square tip, smoked backdrop, fake glow.
 - README: screenshot, schematic layout, palette badges.
 - GitHub About: description + topics; `dev-protocol` git-workflow §3.6 for public repos.
 - License: CC BY 4.0 (use with attribution to https://github.com/hbauzan/eqviz).
